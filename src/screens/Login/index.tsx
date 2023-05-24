@@ -40,10 +40,6 @@ export default function LoginScreen(): JSX.Element {
     navigation.navigate('Register');
   };
 
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <Modal
@@ -52,7 +48,9 @@ export default function LoginScreen(): JSX.Element {
         onRequestClose={() => setShowModal(false)}
         animationType="slide"
         hardwareAccelerated>
-        <View style={styles.modalView}>
+        <View
+          style={styles.modalView}
+          onTouchEndCapture={() => setShowModal(false)}>
           <View style={styles.modalContainer}>
             <List.Section>
               <List.Subheader>Choose account type</List.Subheader>
@@ -97,13 +95,18 @@ export default function LoginScreen(): JSX.Element {
           <TextInput placeholder="Email" style={styles.input} />
           <TextInput
             placeholder="Password"
-            secureTextEntry={true}
+            secureTextEntry={!showPassword}
             style={styles.input}
-            right={<TextInput.Icon icon="eye-off" />}
+            right={
+              <TextInput.Icon
+                icon={showPassword ? 'eye' : 'eye-off'}
+                onPress={() => setShowPassword(prev => !prev)}
+              />
+            }
           />
           <Button
             // style={styles.input}
-            mode="contained"
+            mode="elevated"
             onPress={() => setShowModal(true)}>
             {accountType}
           </Button>
