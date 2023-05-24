@@ -18,23 +18,13 @@ const Stack = createStackNavigator<AppStackParamList>();
 export default function AppNavigator(): React.ReactElement {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen
-          name="Splash"
-          options={{headerShown: false}}
-          component={SplashScreen}
-        />
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerTitle: 'Getting Started'}}
-        />
+      <Stack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen
-          name="MainNav"
-          component={MainNavigator}
-          options={{headerShown: false}}
-        />
+        <Stack.Screen name="MainNav" component={MainNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

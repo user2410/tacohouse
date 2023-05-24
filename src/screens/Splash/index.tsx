@@ -24,7 +24,7 @@ export default function SplashScreen(): JSX.Element {
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('Login');
-    }, 999000);
+    }, 3000);
   }, []);
 
   return (
