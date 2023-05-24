@@ -33,18 +33,27 @@ export default function MainNavigator(): React.ReactElement {
               iconName = 'inbox';
               break;
             case 'Problem':
-              iconName = 'screwdriver';
+              iconName = 'house-damage';
               break;
             default:
               iconName = '';
           }
-          return <FontAwesome5 name={iconName} size={25} />;
+          return (
+            <FontAwesome5
+              name={iconName}
+              size={25}
+              style={{color: focused ? '#eb344f' : '#808080'}}
+            />
+          );
         },
       })}>
       <Tab.Screen
         name="HomeNav"
         component={HomeNavigator}
-        options={{headerShown: false}}
+        options={{
+          title: 'Home',
+          headerShown: false,
+        }}
       />
       <Tab.Screen name="Invoice" component={HomeScreen} />
       <Tab.Screen name="Tenant" component={HomeScreen} />
