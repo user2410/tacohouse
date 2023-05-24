@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react';
-import {ActivityIndicator, Image, SafeAreaView, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
 import styles from './styles';
 import {
   NavigationProp,
@@ -16,15 +23,28 @@ export default function SplashScreen(): JSX.Element {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('GettingStarted');
-    }, 5000);
+      navigation.replace('Login');
+    }, 999000);
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={require('@assets/logo.png')} style={styles.logo} />
-      <ActivityIndicator size="small" color={styles.activityIndicator.color} />
-      <Text>Home sweet home</Text>
+      <ImageBackground
+        source={require('@assets/images/splash_background.jpeg')}
+        resizeMode="cover"
+        style={styles.background}>
+        <View style={styles.body}>
+          <Image source={require('@assets/logo.png')} style={styles.logo} />
+          <Text style={styles.appName}>Tacohouse</Text>
+          <ActivityIndicator
+            size="small"
+            color={styles.activityIndicator.color}
+          />
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>2023® hust.edu.vn</Text>
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 }

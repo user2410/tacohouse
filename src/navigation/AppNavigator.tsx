@@ -1,15 +1,13 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {Routes} from './routes';
-import SplashScreen from '@screens/Splash';
-import HomeScreen from '@screens/Home';
-import GettingStartedScreen from '@screens/GettingStarted';
+import {createStackNavigator} from '@react-navigation/stack';
+import LoginScreen from '@screens/Login';
 import RegisterScreen from '@screens/Register';
+import SplashScreen from '@screens/Splash';
+import React from 'react';
 import MainNavigator from './MainNavigator';
 
 export type AppStackParamList = {
-  GettingStarted: undefined;
+  Login: undefined;
   MainNav: undefined;
   Splash: undefined;
   Register: undefined;
@@ -27,8 +25,8 @@ export default function AppNavigator(): React.ReactElement {
           component={SplashScreen}
         />
         <Stack.Screen
-          name="GettingStarted"
-          component={GettingStartedScreen}
+          name="Login"
+          component={LoginScreen}
           options={{headerTitle: 'Getting Started'}}
         />
         <Stack.Screen name="Register" component={RegisterScreen} />

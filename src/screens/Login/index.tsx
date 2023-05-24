@@ -5,13 +5,10 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {AppStackParamList} from '@navigation/AppNavigator';
 import {useNavigation} from '@react-navigation/native';
 
-type GettingStartedScreenProp = StackNavigationProp<
-  AppStackParamList,
-  'GettingStarted'
->;
+type LoginScreenProp = StackNavigationProp<AppStackParamList, 'Login'>;
 
-export default function GettingStartedScreen(): JSX.Element {
-  const navigation = useNavigation<GettingStartedScreenProp>();
+export default function LoginScreen(): JSX.Element {
+  const navigation = useNavigation<LoginScreenProp>();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
