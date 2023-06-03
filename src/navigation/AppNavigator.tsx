@@ -5,6 +5,8 @@ import RegisterScreen from '@screens/Register';
 import SplashScreen from '@screens/Splash';
 import React from 'react';
 import MainNavigator from './MainNavigator';
+import RoomSection from '@components/RoomSection';
+import InvoiceSection from '@components/InvoiceSection';
 
 export type AppStackParamList = {
   Login: undefined;
