@@ -1,0 +1,53 @@
+export const mockRoomItem = {
+    id: 1,
+    roomName: 'The Hamiton',
+    address: '1815 14th st NW, Washington, US',
+    price: 1200000,
+    area: 12.2,
+    liked: true,
+    owner: 'Nguyen Van Ky',
+    tenant: 'Lang Thang',
+}
+
+export const mockRoomSection = [
+    {
+        id: 1,
+        roomName: 'The Hamiton',
+        address: '1815 14th st NW, Washington, US',
+        price: 1200000,
+        area: 12.2,
+        liked: true,
+        owner: 'Nguyen Van Ky',
+        tenant: 'Lang Thang',
+    },
+    {
+        id: 2,
+        roomName: 'The Hamiton',
+        address: '1815 14th st NW, Washington, US',
+        price: 1200000,
+        area: 12.2,
+        liked: false,
+        owner: 'Nguyen Van Ky',
+        tenant: 'Lang Thang',
+    },
+    {
+        id: 3,
+        roomName: 'The Hamiton',
+        address: '1815 14th st NW, Washington, US',
+        price: 1200000,
+        area: 12.2,
+        liked: true,
+        owner: 'Nguyen Van Ky',
+        tenant: 'Lang Thang',
+    },
+    {
+        id: 4,
+        roomName: 'The Hamiton',
+        address: '1815 14th st NW, Washington, US',
+        price: 1200000,
+        area: 12.2,
+        liked: false,
+        owner: 'Nguyen Van Ky',
+        tenant: 'Lang Thang',
+    },
+];
