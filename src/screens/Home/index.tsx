@@ -2,8 +2,11 @@ import React from 'react';
 import {Pressable, Text, View} from 'react-native';
 import styles from './styles';
 import {Image} from 'react-native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {AppStackParamList} from '@navigation/AppNavigator';
+import {useNavigation} from '@react-navigation/native';
 
-type Props = {};
+type AppHomeNavProps = StackNavigationProp<AppStackParamList>;
 
 const managedItems = [
   {
@@ -64,7 +67,9 @@ const managedItems = [
   },
 ];
 
-export default function HomeScreen({}: Props) {
+export default function HomeScreen() {
+  const appNavigation = useNavigation<AppHomeNavProps>();
+
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -89,7 +94,11 @@ export default function HomeScreen({}: Props) {
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionHeaderText}>News</Text>
         </View>
-        <View style={styles.sectionBody}></View>
+        <View style={styles.sectionBody}>
+          <Pressable onPress={() => appNavigation.replace('ListingNav')}>
+            <Text>Go to listings</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
