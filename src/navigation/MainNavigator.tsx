@@ -1,7 +1,15 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
+
 import HomeScreen from '@screens/Home';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomeNavigator from './Home/HomeNavigator';
+import { SingleRoom } from '@screens/SingleRoom';
+import RoomSection from '@components/RoomSection';
+import InvoiceSection from '@components/InvoiceSection';
+import CreateRoom from '@screens/SingleRoom/CreateRoom';
+import EditRoom from '@screens/SingleRoom/EditRoom';
+import UserSection from '@components/TenantSection';
 
 export type MainTabParamList = {
   HomeNav: undefined;
@@ -9,13 +17,14 @@ export type MainTabParamList = {
   Tenant: undefined;
   Chat: undefined;
   Problem: undefined;
+  Develop: undefined;
 };
 const Tab = createBottomTabNavigator();
 
 export default function MainNavigator(): React.ReactElement {
   return (
     <Tab.Navigator
-      initialRouteName="HomeNav"
+      initialRouteName="Develop"
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, size, color}) => {
           var iconName: string;
@@ -34,6 +43,9 @@ export default function MainNavigator(): React.ReactElement {
               break;
             case 'Problem':
               iconName = 'house-damage';
+              break;
+            case 'Develop':
+              iconName = 'dev';
               break;
             default:
               iconName = '';
@@ -59,6 +71,7 @@ export default function MainNavigator(): React.ReactElement {
       <Tab.Screen name="Tenant" component={HomeScreen} />
       <Tab.Screen name="Chat" component={HomeScreen} />
       <Tab.Screen name="Problem" component={HomeScreen} />
+      <Tab.Screen name="Develop" component={UserSection} />
     </Tab.Navigator>
   );
 }

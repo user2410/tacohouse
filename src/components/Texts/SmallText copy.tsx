@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 // Types
 import { TextProps } from "./types";
 import { StyleSheet, Text } from "react-native";
-import { colors } from "@src/config/colors";
+import { colors } from "@src/utils/colors";
 
 const styles = StyleSheet.create({
     container: {

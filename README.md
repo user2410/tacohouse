@@ -12,3 +12,10 @@ npx react-native start
 <!-- or --> select android = hit a key
 yarn react-native start
 ```
+
+## Install library
+```
+yarn add react-native-image-picker
+<!-- or -->
+npm install react-native-image-picker
+```

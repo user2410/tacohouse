@@ -36,8 +36,17 @@ export const mockInvoiceSection = [
         tenantId: 4,
         tenantName: 'Trinh Van Quyet',
         room: 'P205',
-        status: InvoiceStatus.paid,
+        status: InvoiceStatus.overdue,
         balanceDue: 1452000,
         dueDate: 15,
+    },
+    {
+        id: 3,
+        tenantId: 4,
+        tenantName: 'Trinh Van Quyet',
+        room: 'P206',
+        status: InvoiceStatus.pending,
+        balanceDue: 1852000,
+        dueDate: 12,
     },
 ]

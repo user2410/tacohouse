@@ -1,7 +1,7 @@
 import React from 'react';
-import {Pressable, Text, View} from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import styles from './styles';
-import {Image} from 'react-native';
+import { Image } from 'react-native';
 
 type Props = {};
 
@@ -13,6 +13,7 @@ const managedItems = [
   {
     imgSource: require('@assets/images/avatar_placeholder.jpg'),
     title: 'Rooms',
+    link: 'rooms',
   },
   {
     imgSource: require('@assets/images/avatar_placeholder.jpg'),
@@ -64,7 +65,13 @@ const managedItems = [
   },
 ];
 
-export default function HomeScreen({}: Props) {
+// Types 
+// import { RootStackParamList } from "../navigators/RootStack";
+import { StackScreenProps } from "@react-navigation/stack";
+
+// type Props = StackScreenProps<RootStackParamList, "Balance">;
+
+export default function HomeScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -72,11 +79,12 @@ export default function HomeScreen({}: Props) {
           <Text style={styles.sectionHeaderText}>Manage</Text>
         </View>
         <View style={styles.sectionBody}>
+          {/* render list icon */}
           {managedItems.map((item, index) => (
             <Pressable
               key={index}
               style={styles.manageCard}
-              onPress={() => console.log(`Pressed '${item.title}'`)}>
+              onPress={() => navigation.navigate('Rooms')}>
               <Image source={item.imgSource} style={styles.manageCardImage} />
               <Text numberOfLines={2} style={styles.manageCardTitle}>
                 {item.title}
