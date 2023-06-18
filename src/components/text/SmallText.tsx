@@ -6,7 +6,7 @@ import {StyleSheet, Text} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    fontSize: 13,
+    fontSize: 9,
     color: '#888',
     textAlign: 'left',
     fontWeight: 'bold',

@@ -1,5 +1,6 @@
 import BigText from '@components/text/BigText';
 import RegularText from '@components/text/RegularText';
+import SmallText from '@components/text/SmallText';
 import {Image, StyleSheet} from 'react-native';
 import {Pressable, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -25,9 +26,9 @@ ListingCarditem) => {
       </View>
       <View style={styles.containerInlineGroup}>
         <View style={styles.containerInlineGroup}>
-          <BigText textStyles={{fontSize: 24}}>
+          <SmallText textStyles={{fontSize: 24}}>
             {item.price.toLocaleString()} VND
-          </BigText>
+          </SmallText>
           <RegularText> /Month</RegularText>
         </View>
         <View>
