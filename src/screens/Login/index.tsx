@@ -117,7 +117,7 @@ export default function LoginScreen(): JSX.Element {
             Don't have an account? Login / register with
           </Text>
           {/* <TouchableOpacity onPress={handleNavigateToRegister}>
-      </TouchableOpacity> */}
+            </TouchableOpacity> */}
           <View style={styles.socialBtnContainer}>
             <FIcon name="social-google-plus" size={50} color="#c00"></FIcon>
             <FIcon name="social-facebook" size={50} color="#4267B2"></FIcon>

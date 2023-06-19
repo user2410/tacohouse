@@ -19,7 +19,7 @@ export default function Gallery(): React.ReactElement {
         <View style={styles.container}>
             {
                 list.map((item, index) => index < 5 && (
-                    <Image style={styles.image} source={{ uri:  item}}/>
+                    <Image key={`gallery-item-${index}`} style={styles.image} source={{ uri:  item}}/>
                 ))
             }
             <View style={{

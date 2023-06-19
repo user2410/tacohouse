@@ -3,73 +3,76 @@ import { Pressable, Text, View } from 'react-native';
 import styles from './styles';
 import { Image } from 'react-native';
 
-type Props = {};
-
 const managedItems = [
   {
     imgSource: require('@assets/images/avatar_placeholder.jpg'),
     title: 'Manage Hostel',
+    link: 'ManageHostel',
   },
   {
     imgSource: require('@assets/images/avatar_placeholder.jpg'),
     title: 'Rooms',
-    link: 'rooms',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Services',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Contracts',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Electric and Water',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Reservation',
+    link: 'Rooms',
   },
   {
     imgSource: require('@assets/images/avatar_placeholder.jpg'),
     title: 'Tenants',
+    link: 'Tenants',
   },
   {
     imgSource: require('@assets/images/avatar_placeholder.jpg'),
     title: 'Invoices',
+    link: "Invoices",
   },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Payments',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Expenses',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Deposit',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Business analytics',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Problem',
-  },
-  {
-    imgSource: require('@assets/images/avatar_placeholder.jpg'),
-    title: 'Appointment',
-  },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Contracts',
+  //   link: "Contracts",
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Services',
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Electric and Water',
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Reservation',
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Payments',
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Expenses',
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Deposit',
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Business analytics',
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Problem',
+  // },
+  // {
+  //   imgSource: require('@assets/images/avatar_placeholder.jpg'),
+  //   title: 'Appointment',
+  // },
 ];
 
 // Types 
-// import { RootStackParamList } from "../navigators/RootStack";
 import { StackScreenProps } from "@react-navigation/stack";
+import { HomeDrawerParamList } from '@navigation/Home/HomeNavigator';
 
-// type Props = StackScreenProps<RootStackParamList, "Balance">;
+type Props = StackScreenProps<HomeDrawerParamList, "Home">;
+
 
 export default function HomeScreen({ navigation }: Props) {
   return (
@@ -82,9 +85,9 @@ export default function HomeScreen({ navigation }: Props) {
           {/* render list icon */}
           {managedItems.map((item, index) => (
             <Pressable
-              key={index}
+              key={`${index}-list-icon-home`}
               style={styles.manageCard}
-              onPress={() => navigation.navigate('Rooms')}>
+              onPress={() => item.link ? navigation.navigate(item.link as never) : ''}>
               <Image source={item.imgSource} style={styles.manageCardImage} />
               <Text numberOfLines={2} style={styles.manageCardTitle}>
                 {item.title}

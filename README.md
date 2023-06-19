@@ -19,3 +19,17 @@ yarn add react-native-image-picker
 <!-- or -->
 npm install react-native-image-picker
 ```
+
+# Screen images
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px;">
+<img src='./screenshots/Screenshot_1.png' width=280>
+<img src='./screenshots/Screenshot_2.png' width=280>
+<img src='./screenshots/Screenshot_3.png' width=280>
+<img src='./screenshots/Screenshot_4.png' width=280>
+<img src='./screenshots/Screenshot_5.png' width=280>
+<img src='./screenshots/Screenshot_6.png' width=280>
+<img src='./screenshots/Screenshot_7.png' width=280>
+<img src='./screenshots/Screenshot_8.png' width=280>
+<img src='./screenshots/Screenshot_9.png' width=280>
+<img src='./screenshots/Screenshot_10.png' width=280>
+</div>

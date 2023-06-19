@@ -5,10 +5,12 @@ import { SafeAreaView, View, Text, TextInput, StyleSheet, Image, ScrollView } fr
 
 // Image picker
 import { ImageLibraryOptions, ImagePickerResponse, launchImageLibrary } from 'react-native-image-picker';
+// Icon
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 
-export default function CreateRoom(): React.ReactElement {
-    const [roomName, setRoomName] = useState('');
+export default function CreateTenant(): React.ReactElement {
+    const [TenantName, setTenantName] = useState('');
     const [roomNumber, setRoomNumber] = useState('');
     const [address, setAddress] = useState('');
     const [price, setPrice] = useState('');
@@ -16,10 +18,10 @@ export default function CreateRoom(): React.ReactElement {
 
     const [imageUri, setImageUri] = useState('');
 
-    const handleCreateRoom = () => {
+    const handleCreateTenant = () => {
         // Perform the logic to create a new room using the entered data
         const newRoom = {
-            roomName,
+            TenantName,
             roomNumber: parseInt(roomNumber),
             address,
             price: parseInt(price),
@@ -29,7 +31,7 @@ export default function CreateRoom(): React.ReactElement {
         // TODO: Handle the creation of the room, such as storing it in a database or sending it to an API
 
         // Reset the form
-        setRoomName('');
+        setTenantName('');
         setRoomNumber('');
         setAddress('');
         setPrice('');
@@ -61,33 +63,56 @@ export default function CreateRoom(): React.ReactElement {
             <ScrollView
                 showsVerticalScrollIndicator={false}
             >
-                <View style={{ flexDirection: 'row', marginBottom: 20}}>
-                    <View style={{ alignItems: 'center', justifyContent: 'space-around', marginRight: 10 }}>
-                        <ShareButton buttonStyle={{ backgroundColor: '#9dc4d2' }} onPress={handleChooseImage}>
-                            <RegularText textStyles={{ fontSize: 16, fontWeight: 'bold' }}>
-                                Choose Image
-                            </RegularText>
+                {/* Select 1 room image */}
+                <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+                    <View
+                        style={{
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                            marginRight: 10,
+                        }}>
+                        <ShareButton
+                            buttonStyle={{
+                                backgroundColor: '#d3dde1',
+                            }}
+                            onPress={handleChooseImage}>
+                            {/* Show image */}
+                            {imageUri ? (
+                                <Image style={styles.image} source={{ uri: imageUri }} />
+                            ) : (
+                                <Ionicons name="image-outline" size={32} color="black" />
+                            )}
                         </ShareButton>
                     </View>
-                    {imageUri && <Image style={styles.image} source={{ uri: imageUri }} />}
                 </View>
                 <View>
-                    <Text style={styles.label}>Room Name:</Text>
+                    <Text style={styles.label}>Tenant Name:</Text>
                     <TextInput
                         style={styles.input}
-                        value={roomName}
-                        onChangeText={setRoomName}
-                        placeholder="Enter Room Name"
+                        value={TenantName}
+                        onChangeText={setTenantName}
+                        placeholder="Enter Tenant Name"
                     />
                 </View>
 
                 <View>
-                    <Text style={styles.label}>Room Number:</Text>
+                    <Text style={styles.label}>Phone Number:</Text>
                     <TextInput
                         style={styles.input}
                         value={roomNumber}
                         onChangeText={setRoomNumber}
-                        placeholder="Enter Room Number"
+                        placeholder="Enter Phone Number"
+                    />
+                </View>
+
+                <View>
+                    <Text style={styles.label}>Citizen identification:</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={price}
+                        onChangeText={setPrice}
+                        keyboardType="numeric"
+                        placeholder="Enter Citizen identification"
                     />
                 </View>
 
@@ -101,31 +126,10 @@ export default function CreateRoom(): React.ReactElement {
                     />
                 </View>
 
-                <View>
-                    <Text style={styles.label}>Price (per month):</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={price}
-                        onChangeText={setPrice}
-                        keyboardType="numeric"
-                        placeholder="Enter Price"
-                    />
-                </View>
 
-                <View>
-                    <Text style={styles.label}>Area (sqft):</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={area}
-                        onChangeText={setArea}
-                        keyboardType="numeric"
-                        placeholder="Enter Area"
-                    />
-                </View>
-
-                <ShareButton buttonStyle={{ backgroundColor: '#9dc4d2' }} onPress={handleCreateRoom}>
+                <ShareButton buttonStyle={{ backgroundColor: '#9dc4d2' }} onPress={handleCreateTenant}>
                     <RegularText textStyles={{ fontSize: 19, fontWeight: 'bold' }}>
-                        Create Room
+                        Create Tenant
                     </RegularText>
                 </ShareButton>
             </ScrollView>
@@ -154,7 +158,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
     image: {
-        width: 200,
+        width: "100%",
         height: 200,
         borderRadius: 12,
     }

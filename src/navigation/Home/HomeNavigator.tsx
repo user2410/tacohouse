@@ -1,23 +1,28 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '@screens/Home';
 import CustomDrawer from './CustomDrawer';
-import {VoidScreen} from '@screens/void';
+import { VoidScreen } from '@screens/void';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import RoomSection from '@screens/Room/RoomSection';
+import TenantSection from '@screens/Tenant/TenantSection';
+import InvoiceSection from '@screens/Invoice/InvoiceSection';
 
 export type HomeDrawerParamList = {
   Home: undefined;
+  Tenants: undefined;
+  Rooms: undefined;
+  Invoices: undefined;
   ManageHostel: undefined;
   Services: undefined;
   ElectricAndWater: undefined;
   Contracts: undefined;
-  Tenants: undefined;
   Finance: undefined;
   Report: undefined;
   Chat: undefined;
-  BussinessAnalytics: undefined;
+  BusinessAnalytics: undefined;
   Problem: undefined;
   AssetManagement: undefined;
   Roles: undefined;
@@ -27,6 +32,7 @@ export type HomeDrawerParamList = {
 const Drawer = createDrawerNavigator<HomeDrawerParamList>();
 
 export default function HomeNavigator() {
+
   return (
     <Drawer.Navigator
       initialRouteName="Home"
@@ -46,8 +52,28 @@ export default function HomeNavigator() {
         component={HomeScreen}
         options={{
           title: 'Home',
-          drawerIcon: ({focused}) => (
+          drawerIcon: ({ focused }) => (
             <FontAwesome5Icon name="home" size={focused ? 22 : 20} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Rooms"
+        component={RoomSection}
+        options={{
+          title: 'Rooms',
+          drawerIcon: ({ focused }) => (
+            <FontAwesome5Icon name="hotel" size={focused ? 22 : 20} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Tenants"
+        component={TenantSection}
+        options={{
+          title: 'Tenants',
+          drawerIcon: ({ focused }) => (
+            <FontAwesome5Icon name="users" size={focused ? 22 : 20} />
           ),
         }}
       />
@@ -56,12 +82,22 @@ export default function HomeNavigator() {
         component={VoidScreen}
         options={{
           title: 'Manage Hostels',
-          drawerIcon: ({focused}) => (
+          drawerIcon: ({ focused }) => (
             <FontAwesome5Icon name="building" size={focused ? 22 : 20} />
           ),
         }}
       />
       <Drawer.Screen
+        name="Invoices"
+        component={InvoiceSection}
+        options={{
+          title: 'Invoices',
+          drawerIcon: ({ focused }) => (
+            <FontAwesome5Icon name="file-invoice" size={focused ? 22 : 20} />
+          ),
+        }}
+      />
+      {/* <Drawer.Screen
         name="Services"
         component={VoidScreen}
         options={{
@@ -88,16 +124,6 @@ export default function HomeNavigator() {
           title: 'Contracts',
           drawerIcon: ({focused}) => (
             <FontAwesome5Icon name="file-contract" size={focused ? 22 : 20} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Tenants"
-        component={VoidScreen}
-        options={{
-          title: 'Tenants',
-          drawerIcon: ({focused}) => (
-            <FontAwesome5Icon name="users" size={focused ? 22 : 20} />
           ),
         }}
       />
@@ -132,10 +158,10 @@ export default function HomeNavigator() {
         }}
       />
       <Drawer.Screen
-        name="BussinessAnalytics"
+        name="BusinessAnalytics"
         component={VoidScreen}
         options={{
-          title: 'Bussiness and Analytics',
+          title: 'Business and Analytics',
           drawerIcon: ({focused}) => (
             <Ionicons name="analytics" size={focused ? 22 : 20} />
           ),
@@ -183,7 +209,7 @@ export default function HomeNavigator() {
             />
           ),
         }}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 }

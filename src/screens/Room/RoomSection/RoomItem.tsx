@@ -1,21 +1,29 @@
 import React from "react";
 import { RoomItemProps } from "./types";
 import { mockRoomItem } from "@src/mock/roomSection";
-import { Image, StyleSheet, View } from "react-native";
-import SmallText from "@components/Texts/SmallText copy";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import BigText from "@components/Texts/BigText";
 import RegularText from "@components/Texts/RegularText";
+import { useNavigation } from "@react-navigation/native";
 
 export default function RoomItem( props: RoomItemProps):React.ReactElement {
+
+    const navigation = useNavigation();
+
+    const handleNavigate = () => {
+        navigation.navigate('SingleRoom');
+    }
+
     return(
         <View style={styles.container}>
-            <View style={{ position: 'relative'}}>
+            <Pressable style={{ position: 'relative'}} onPress={() => handleNavigate()}>
+
                 <Image style={styles.image} source={require('@assets/images/room1.jpg')} />
                 <Ionicons size={20} color={'red'} style={styles.heart} name={props.liked ? "heart" : 'heart-outline'} />
-            </View>
+            </Pressable>
             <View>
                 <BigText textStyles={{ marginBottom: 2}}>{props.roomName}</BigText>
                 <RegularText>{props.address}</RegularText>

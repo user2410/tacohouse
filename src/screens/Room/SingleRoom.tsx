@@ -1,5 +1,5 @@
 import ShareButton from "@components/Button";
-import { RoomItemProps } from "@components/RoomSection/types";
+import { RoomItemProps } from "@screens/Room/RoomSection/types";
 import BigText from "@components/Texts/BigText";
 import RegularText from "@components/Texts/RegularText";
 import { mockRoomItem } from "@src/mock/roomSection";

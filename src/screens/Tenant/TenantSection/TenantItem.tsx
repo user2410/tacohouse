@@ -3,13 +3,20 @@ import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { TenantItemProps } from "./stypes";
 import RegularText from "@components/Texts/RegularText";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 
 
 
 
 export default function UserItem(props: TenantItemProps): React.ReactElement {
+    const navigation = useNavigation();
+
+    const handleNavigate = () => {
+        navigation.navigate('SingleTenant');
+    }
     return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onPress={() => handleNavigate()}>
             <Image style={styles.image} source={require('@assets/images/avatar.jpg')} />
             <View>
                 <BigText textStyles={{ fontSize: 22 }}>{props.userName}</BigText>
@@ -19,7 +26,7 @@ export default function UserItem(props: TenantItemProps): React.ReactElement {
                     {props.userRoom}
                 </BigText>
             </View>
-        </View>
+        </Pressable>
     );
 };
 

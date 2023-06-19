@@ -6,7 +6,7 @@ import RegularText from "@components/Texts/RegularText";
 import BigText from "@components/Texts/BigText";
 import SmallText from "@components/Texts/SmallText copy";
 
-const invoiceStatusColor = {
+export const invoiceStatusColor = {
     paid: {
         text: 'Paid',
         backgroundColor: '#98ed7d',
