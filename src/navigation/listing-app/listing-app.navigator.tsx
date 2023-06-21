@@ -4,11 +4,12 @@ import ListingHomeScreen from '@screens/listing-app/home/home.screen';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import ListingManageScreen from '@screens/listing-app/manage-listings/listings-manage.screen';
 import ListingAccountScreen from '@screens/listing-app/account/account.screen';
+import SingleListing from '@screens/listing-app/single-listing/single-listing.screen';
 
 export type ListingNavigatorParams = {
   Home: {city: string};
   Search: undefined;
-  // SingleListing: undefined;
+  SingleListing: {id: string};
   ManageListings: undefined;
   Chat: undefined;
   Account: undefined;
@@ -32,6 +33,9 @@ export default function ListingAppNavigator(): React.ReactElement {
             case 'Account':
               iconName = 'user';
               break;
+            case 'SingleListing':
+              iconName = 'file-contract';
+              break;
             default:
               iconName = '';
           }
@@ -51,7 +55,11 @@ export default function ListingAppNavigator(): React.ReactElement {
         initialParams={{city: 'hanoi'}}
       />
       {/* <Tab.Screen name="Search" component={}/> */}
-      {/* <Tab.Screen name="SingleListing" component={SingleListing} /> */}
+      <Tab.Screen 
+        name="SingleListing" 
+        component={SingleListing}
+        options={{headerShown: false}}
+       />
       <Tab.Screen
         name="ManageListings"
         component={ListingManageScreen}

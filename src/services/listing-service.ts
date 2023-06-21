@@ -1,3 +1,5 @@
+const timeout = 500;
+
 var listings: ListingEntity[] = [
 	{
 		id: '1',
@@ -114,7 +116,15 @@ export default class ListingService {
 					})
 					resolve(listings.slice(offset, offset + limit));
 				}
-			}, 500);
+			}, timeout);
 		})
 	}
+
+  static getSingleListing(id: string): Promise<ListingEntity | undefined> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(listings.find(item => item.id === id))
+      }, timeout)
+    })
+  }
 }

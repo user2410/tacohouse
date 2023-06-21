@@ -17,8 +17,12 @@ import { Color } from "@assets/styles/global-styles";
 import { cities, districts, listings } from "./static";
 import ListingService from "@services/listing-service";
 import Section from "@components/section/section";
+import { useNavigation } from "@react-navigation/native";
+import { ListingNavigatorParams } from "@navigation/listing-app/listing-app.navigator";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 
 export default function ListingHomeScreen() {
+  const navigation = useNavigation<BottomTabNavigationProp<ListingNavigatorParams, 'Home'>>();
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [currentCity, setCurrentCity] = React.useState<string>('hanoi');
   const [newListings, setNewListings] = React.useState<ListingEntity[]>([]);
@@ -36,6 +40,7 @@ export default function ListingHomeScreen() {
 
   const handlePressListing = (id: string) => {
     console.log('listing', id);
+    navigation.navigate('SingleListing', {id});
   }
 
   return (
@@ -110,21 +115,6 @@ export default function ListingHomeScreen() {
             ))}
           </>
         </Section>
-        {/* <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>
-            Districts
-          </Text>
-          <View style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            flexWrap: 'wrap',
-            gap: 20,
-          }}>
-            {districts.map((item, index) => (
-              <DistrictCard item={item} key={index} />
-            ))}
-          </View>
-        </View> */}
         <View style={[styles.frameContainer, styles.sectionContainer]}>
           <View style={[styles.sectionTitleGroup, styles.sectionTitleFlexbox]}>
             <Text style={[styles.sectionTitle]}>
