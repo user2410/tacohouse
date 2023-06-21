@@ -1,10 +1,10 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '@screens/manage-app/home/home.screen';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import HomeNavigator from './home/home.navigator';
+import ManageHomeScreen from '@screens/manage-app/home/home.screen';
+import { View } from 'react-native';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 export type ManageAppParamList = {
-  HomeNav: undefined;
+  Home: undefined;
   Invoice: undefined;
   Tenant: undefined;
   Chat: undefined;
@@ -20,7 +20,7 @@ export default function ManageAppNavigator(): React.ReactElement {
         tabBarIcon: ({focused, size, color}) => {
           var iconName: string;
           switch (route.name) {
-            case 'HomeNav':
+            case 'Home':
               iconName = 'home';
               break;
             case 'Invoice':
@@ -39,7 +39,7 @@ export default function ManageAppNavigator(): React.ReactElement {
               iconName = '';
           }
           return (
-            <FontAwesome5
+            <FontAwesome5Icon
               name={iconName}
               size={25}
               style={{color: focused ? '#eb344f' : '#808080'}}
@@ -53,17 +53,13 @@ export default function ManageAppNavigator(): React.ReactElement {
         headerTintColor: '#fff',
       })}>
       <Tab.Screen
-        name="HomeNav"
-        component={HomeNavigator}
-        options={{
-          title: 'Home',
-          headerShown: false,
-        }}
+        name="Home"
+        component={ManageHomeScreen}
       />
-      <Tab.Screen name="Invoice" component={HomeScreen} />
-      <Tab.Screen name="Tenant" component={HomeScreen} />
-      <Tab.Screen name="Chat" component={HomeScreen} />
-      <Tab.Screen name="Problem" component={HomeScreen} />
+      <Tab.Screen name="Invoice" component={ManageHomeScreen} />
+      <Tab.Screen name="Tenant" component={ManageHomeScreen} />
+      <Tab.Screen name="Chat" component={ManageHomeScreen} />
+      <Tab.Screen name="Problem" component={ManageHomeScreen} />
     </Tab.Navigator>
   );
 }

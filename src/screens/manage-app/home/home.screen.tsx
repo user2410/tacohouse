@@ -1,39 +1,61 @@
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Modal, Pressable, Text, View } from 'react-native';
 import styles from './home.styles';
 import { Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AppStackParamList } from '@navigation/app.navigator';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { ManageAppParamList } from '@navigation/manage-app/manage-app.navigator';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { HomeDrawerParamList } from '@navigation/manage-app/home/home.navigator';
 import Section from '@components/section/section';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import CustomDrawer from './custom-drawer';
 
 type AppHomeNavProps = StackNavigationProp<AppStackParamList>;
 type ManageNavProps = BottomTabNavigationProp<ManageAppParamList>;
-type ManageHomeNavProps = DrawerNavigationProp<HomeDrawerParamList>;
 
-export default function HomeScreen() {
+export default function ManageHomeScreen() {
   const appNavigation = useNavigation<AppHomeNavProps>();
   const manageAppNavigation = useNavigation<ManageNavProps>();
-  const manageHomeNavigation = useNavigation<ManageHomeNavProps>();
+  const manageAppRoute = useRoute<RouteProp<ManageAppParamList, 'Home'>>();
+
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+
+  React.useLayoutEffect(() => {
+    manageAppNavigation.setOptions({
+      headerTitle: 'Dashboard',
+      headerLeft: () => 
+        <FontAwesome5Icon 
+          name="bars" 
+          size={24} 
+          color="white" 
+          style={{marginLeft: 15}}
+          onPress={() => setIsDrawerOpen(true)}
+        />,
+    })
+  }, [manageAppNavigation, manageAppRoute])
 
   return (
     <View style={styles.sectionContainer}>
-      <Section title="Manage Items" bodyStyle={{
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        flexWrap: 'wrap',
-        gap: 15,
-      }}>
+      <Modal
+        visible={isDrawerOpen}
+        transparent
+        onRequestClose={() => setIsDrawerOpen(false)}
+        animationType="fade"
+        hardwareAccelerated
+      >
+        <View style={styles.modalView}>
+          <CustomDrawer/>
+        </View>
+      </Modal>
+      <Section title="Manage Items" bodyStyle={styles.manageCardContainer}>
         <>
           {[
             {
               imgSource: require('@assets/icons/manage-items/hostel.png'),
               title: 'Manage Hostel',
-              onPress: () => manageHomeNavigation.navigate('ManageHostel'),
+              onPress: () => {},
             },
             {
               imgSource: require('@assets/icons/manage-items/room.png'),

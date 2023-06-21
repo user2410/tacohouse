@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
+  modalView: {
+    flex: 1,
+		backgroundColor: '#00000099'
+  },
 	sectionContainer: {
 		backgroundColor: '#fff',
 	},
@@ -23,6 +27,12 @@ export default StyleSheet.create({
 		flexWrap: 'wrap',
 		gap: 25,
 	},
+  manageCardContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+    gap: 15,
+  },
 	manageCard: {
 		width: '20%',
 		display: 'flex',

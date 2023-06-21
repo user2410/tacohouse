@@ -1,5 +1,5 @@
 import { ListingNavigatorParams } from '@navigation/listing-app/listing-app.navigator';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import ListingService from '@services/listing-service';
 import React from 'react';
 import { Animated, Dimensions, FlatList, Image, ImageBackground, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
@@ -19,6 +19,7 @@ const LOWER_HEADER_HEIGHT = 200;
 const ICON_SIZE = 20;
 
 export default function SingleListing(): React.ReactElement {
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const route = useRoute<RouteProp<ListingNavigatorParams, 'SingleListing'>>();
   const id = route.params?.id
@@ -34,10 +35,12 @@ export default function SingleListing(): React.ReactElement {
   const scrollViewRef = React.useRef<ScrollView>(null);
 
   React.useEffect(() => {
+    scrollViewRef.current?.scrollTo({ y: 0, animated: false });
     (async () => {
       try {
         setIsLoading(true);
         const listing = await ListingService.getSingleListing(id);
+        // console.log('listing', listing);
         setListing(listing);
       } catch (err) {
         console.error(err);
@@ -46,7 +49,7 @@ export default function SingleListing(): React.ReactElement {
         setIsLoading(false);
       }
     })()
-  }, [])
+  }, [isFocused])
 
   const forwardOpacityAnimation = {
     opacity: animatedValue.interpolate({
