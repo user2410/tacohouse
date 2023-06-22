@@ -1,4 +1,4 @@
-const timeout = 500;
+import { timeout } from "./settings";
 
 var listings: ListingEntity[] = [
 	{

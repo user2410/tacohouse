@@ -54,13 +54,13 @@ export default function ManageHomeScreen() {
           {[
             {
               imgSource: require('@assets/icons/manage-items/hostel.png'),
-              title: 'Manage Hostel',
+              title: 'Hostels',
               onPress: () => {},
             },
             {
               imgSource: require('@assets/icons/manage-items/room.png'),
               title: 'Rooms',
-              onPress: () => { },
+              onPress: () => manageAppNavigation.navigate('ManageRooms'),
             },
             {
               imgSource: require('@assets/icons/manage-items/services.png'),
@@ -85,12 +85,12 @@ export default function ManageHomeScreen() {
             {
               imgSource: require('@assets/icons/manage-items/tenant.png'),
               title: 'Tenants',
-              onPress: () => { },
+              onPress: () => manageAppNavigation.navigate('ManageTenants'),
             },
             {
               imgSource: require('@assets/icons/manage-items/invoice.png'),
               title: 'Invoices',
-              onPress: () => { },
+              onPress: () => manageAppNavigation.navigate('ManageInvoices'),
             },
             {
               imgSource: require('@assets/icons/manage-items/payment.png'),

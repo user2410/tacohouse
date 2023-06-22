@@ -1,22 +1,17 @@
 import { ListingNavigatorParams } from '@navigation/listing-app/listing-app.navigator';
 import { RouteProp, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
-import ListingService from '@services/listing-service';
+import ListingService from '@services/listing.service';
 import React from 'react';
-import { Animated, Dimensions, FlatList, Image, ImageBackground, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Animated, Image, ImageBackground, SafeAreaView, ScrollView, StatusBar, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // import styles from './single-listing.style';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Border, Padding } from '@assets/styles/global-styles';
-import { gallery } from './static';
 import MapView, { Marker } from 'react-native-maps';
-
-const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window');
-const HEADER_MAX_HEIGHT = 136;
-const UPPER_HEADER_HEIGHT = 60;
-const LOWER_HEADER_HEIGHT = 200;
-const ICON_SIZE = 20;
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { gallery } from './static';
+import styles, { ICON_SIZE } from './single-listing.style';
 
 export default function SingleListing(): React.ReactElement {
   const isFocused = useIsFocused();
@@ -376,73 +371,3 @@ export default function SingleListing(): React.ReactElement {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  upperHeaderPlaceholder: {
-    height: UPPER_HEADER_HEIGHT,
-  },
-  header: {
-    position: 'absolute',
-    width: '100%',
-  },
-  upperHeaderTransparent: {
-    width: '100%',
-    // backgroundColor: '#AF0C6E',
-    position: 'absolute',
-    height: UPPER_HEADER_HEIGHT,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  upperHeaderLight: {
-    height: UPPER_HEADER_HEIGHT,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  lowerHeader: {
-    height: LOWER_HEADER_HEIGHT
-  },
-  paddingForHeader: {
-    height: LOWER_HEADER_HEIGHT,
-  },
-
-  scrollViewContent: {
-    height: WINDOW_HEIGHT * 2,
-    backgroundColor: 'white',
-  },
-  section: {
-    padding: Padding.p_mini,
-    flexDirection: 'column',
-    gap: 15
-  },
-  divider: {
-    height: 2,
-    backgroundColor: "#e2e3e4"
-  },
-  title: {
-    fontFamily: 'sans-serif-medium',
-    fontWeight: 'bold',
-    fontSize: 24,
-    zIndex: 20,
-  },
-  price: {
-    fontSize: 18,
-    color: '#42658a',
-  },
-  address: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-
-  paragraph: {
-    fontFamily: 'sans-serif',
-    fontSize: 16,
-  },
-})

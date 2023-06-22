@@ -23,6 +23,8 @@ export const Color = {
   black: "#000",
   steelblue: "#1a6eb4",
   gray_100: "#0c243e",
+  gray: '#888',
+  neutral: '#F2F7FF',
   androidRipple: "#d3d3d3",
   darkslateblue: "#0e4da4",
   aliceblue: "#f2f7ff",

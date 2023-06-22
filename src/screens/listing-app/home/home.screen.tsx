@@ -15,7 +15,7 @@ import styles from './home.styles';
 import { ListingCard } from "./listing-card";
 import { Color } from "@assets/styles/global-styles";
 import { cities, districts, listings } from "./static";
-import ListingService from "@services/listing-service";
+import ListingService from "@services/listing.service";
 import Section from "@components/section/section";
 import { useNavigation } from "@react-navigation/native";
 import { ListingNavigatorParams } from "@navigation/listing-app/listing-app.navigator";
