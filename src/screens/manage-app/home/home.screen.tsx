@@ -45,7 +45,7 @@ export default function ManageHomeScreen() {
         animationType="fade"
         hardwareAccelerated
       >
-        <View style={styles.modalView}>
+        <View style={styles.modalView} onTouchEndCapture={() => setIsDrawerOpen(false)}>
           <CustomDrawer/>
         </View>
       </Modal>

@@ -20,6 +20,24 @@ let mockInvoiceSection : InvoiceEntity[] = [
     balanceDue: 1452000,
     dueDate: 15,
   },
+  {
+    id: 3,
+    tenantId: 4,
+    tenantName: 'Trinh Van Quyet',
+    room: 'P205',
+    status: InvoiceStatus.overdue,
+    balanceDue: 1452000,
+    dueDate: 15,
+  },
+  {
+    id: 4,
+    tenantId: 4,
+    tenantName: 'Trinh Van Quyet',
+    room: 'P205',
+    status: InvoiceStatus.pending,
+    balanceDue: 1452000,
+    dueDate: 15,
+  },
 ]
 
 export class InvoiceService {

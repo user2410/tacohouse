@@ -47,5 +47,7 @@ export const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     paddingVertical: 5,
+    backgroundColor: 'white',
+    flex: 1,
   }
 });

@@ -7,7 +7,7 @@ export default function TenantItem({tenant, onPressHandler}: {tenant: TenantEnti
 
   return (
     <Pressable style={styles.container} onPress={() => onPressHandler()}>
-      <Image style={styles.image} source={require('@assets/images/avatar_placeholder.jpg')} />
+      <Image style={styles.image} source={require('@assets/images/avatar.jpg')} />
       <View>
         <BigText textStyles={{ fontSize: 22 }}>{tenant.userName}</BigText>
         <RegularText>{`Phone: ${tenant.phoneNumber}`}</RegularText>

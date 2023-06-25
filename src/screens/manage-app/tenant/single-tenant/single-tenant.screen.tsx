@@ -60,7 +60,7 @@ export default function SingleTenantScreen() : React.ReactElement {
         <View style={styles.header}>
           <Image style={styles.background} source={require("@assets/images/login_background.png")} />
           <View style={{ marginVertical: 10 }}>
-            <Avatar.Image size={120} source={require('@assets/images/avatar_placeholder.jpg')} />
+            <Avatar.Image size={120} source={require('@assets/images/avatar.jpg')} />
             <TouchableOpacity
               onPress={handleChangeAvatar}
               activeOpacity={0.5}
@@ -128,8 +128,8 @@ export default function SingleTenantScreen() : React.ReactElement {
           </ScrollView>
           {/* Delete button */}
           <View style={{ alignItems: 'center', marginTop: 20 }}>
-            <ShareButton buttonStyle={{ marginTop: 8, marginBottom: 15, backgroundColor: '#E4E6EB', width: "90%" }}>
-              <RegularText textStyles={{ color: '#cf222e', fontWeight: 'bold' }}>
+            <ShareButton buttonStyle={{ marginTop: 8, marginBottom: 15, backgroundColor: '#cf222e', width: "90%" }}>
+              <RegularText textStyles={{ color: 'white', fontWeight: 'bold' }}>
                 Delete profile
               </RegularText>
             </ShareButton>

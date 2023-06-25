@@ -6,6 +6,7 @@ import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { ManageAppParamList } from "@navigation/manage-app/manage-app.navigator";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import BigText from "@components/text/BigText";
 
 export default function ManageRoomsScreen(): React.ReactElement {
   const navigation = useNavigation<BottomTabNavigationProp<ManageAppParamList, 'ManageRooms'>>();
@@ -44,8 +45,10 @@ export default function ManageRoomsScreen(): React.ReactElement {
         renderItem={({ item }) => <RoomItem room={item} onPressHandler={(() => navigation.navigate('SingleRoom', {id: item.id}))} />}
         showsVerticalScrollIndicator={false}
       />
-      <Pressable onPress={() => navigation.navigate('CreateRoom')}>
-        <Text>Create Room</Text>
+      <Pressable style={{ marginTop: 5 }} onPress={() => navigation.navigate('CreateRoom')}>
+        <BigText textStyles={styles.text}>
+          Create room
+        </BigText>
       </Pressable>
     </View>
   );
@@ -56,5 +59,14 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     height: '100%',
+    backgroundColor: 'white',
+  },
+  text: {
+    textAlign: 'center',
+    backgroundColor: "#1a6985",
+    borderRadius: 8,
+    color: 'white',
+    fontSize: 20,
+    paddingVertical: 4,
   }
 });

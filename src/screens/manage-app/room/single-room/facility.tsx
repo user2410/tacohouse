@@ -1,8 +1,8 @@
-import { Color } from "@assets/styles/global-styles";
-import RegularText from "@components/text/RegularText";
-import React from "react";
-import { Text } from "react-native";
-import { StyleSheet, View } from "react-native";
+import { Color } from '@assets/styles/global-styles';
+import RegularText from '@components/text/RegularText';
+import React, {useState} from 'react';
+import { Pressable } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 const list = [
   'Car Parking',
@@ -15,16 +15,54 @@ const list = [
   'Sport Center',
 ];
 
+type ItemProps = {
+  item: string;
+  onPress?: () => void;
+  backgroundColor?: string;
+  textColor?: string;
+  borderColor?: string;
+};
+
+const Item = (props: ItemProps) => {
+  return (
+    <Pressable
+      onPress={props.onPress}
+      style={{
+        ...styles.item,
+        backgroundColor: props.backgroundColor,
+      }}>
+      <RegularText>{props.item}</RegularText>
+    </Pressable>
+  );
+};
+
 export default function Facility(): React.ReactElement {
+  const [selected, setSelected] = useState<Array<string>>([]);
+
+  const handleSelect = (item: string) => {
+    const isContain = selected.includes(item);
+
+    if (isContain) {
+      setSelected(selected.filter(i => i != item));
+    } else {
+      setSelected([...selected, item]);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {
-        list.map((item, index) => (
-          <View key={index} style={styles.item}>
-            <RegularText>{item}</RegularText>
-          </View>
-        ))
-      }
+      {list.map((item, index) => {
+        const backgroundColor = selected.includes(item) ? '#98b2db' : '#DEEAFD';
+
+        return (
+          <Item
+            key={`facilities-${index}`}
+            item={item}
+            onPress={() => handleSelect(item)}
+            backgroundColor={backgroundColor}
+          />
+        );
+      })}
     </View>
   );
 }
@@ -44,7 +82,4 @@ const styles = StyleSheet.create({
     borderColor: '#DEEAFD',
     borderWidth: 1,
   },
-  text: {
-
-  }
 });
