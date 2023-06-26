@@ -10,6 +10,7 @@ export const ICON_SIZE = 20;
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   upperHeaderPlaceholder: {
     height: UPPER_HEADER_HEIGHT,

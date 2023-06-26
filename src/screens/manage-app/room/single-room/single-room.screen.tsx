@@ -2,7 +2,7 @@ import ShareButton from "../../../../components/button";
 import BigText from "@components/text/BigText";
 import RegularText from "@components/text/RegularText";
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
 
 // Icons
@@ -144,11 +144,14 @@ export function SingleRoomScreen(): React.ReactElement {
           </View>
         </View>
       </ScrollView>
-      <Button
+      <Pressable
         onPress={() => navigation.navigate('EditRoom', { id })}
+        style={{ padding: 2, marginTop: 4 }}
       >
-        <Text>Edit</Text>
-      </Button>
+        <RegularText textStyles={styles.editButton}>
+          Edit
+        </RegularText>
+      </Pressable>
     </SafeAreaView>
   );
 }
@@ -181,5 +184,13 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: "center",
     columnGap: 5,
+  },
+  editButton: {
+    textAlign: 'center',
+    backgroundColor: "#1a6985",
+    borderRadius: 8,
+    color: 'white',
+    fontSize: 20,
+    paddingVertical: 4,
   }
 });

@@ -3,11 +3,13 @@ import ShareButton from "../../../../components/button";
 import RegularText from "@components/text/RegularText";
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, StyleSheet, Image, ScrollView } from 'react-native';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 // Image picker
 import { ImageLibraryOptions, ImagePickerResponse, launchImageLibrary } from 'react-native-image-picker';
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { ManageAppParamList } from "@navigation/manage-app/manage-app.navigator";
+import Facility from "../single-room/facility";
 
 
 export default function EditRoomScreen(): React.ReactElement {
@@ -97,15 +99,27 @@ export default function EditRoomScreen(): React.ReactElement {
       <ScrollView
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-          <View style={{ alignItems: 'center', justifyContent: 'space-around', marginRight: 10 }}>
-            <ShareButton buttonStyle={{ backgroundColor: '#9dc4d2' }} onPress={handleChooseImage}>
-              <RegularText textStyles={{ fontSize: 16, fontWeight: 'bold' }}>
-                Choose Image
-              </RegularText>
+        {/* Select 1 room image */}
+        <View style={{flexDirection: 'row', marginBottom: 20}}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              marginRight: 10,
+            }}>
+            <ShareButton
+              buttonStyle={{
+                backgroundColor: '#d3dde1',
+              }}
+              onPress={handleChooseImage}>
+              {/* Show image */}
+              {imageUri ? (
+                <Image style={styles.image} source={{uri: imageUri}} />
+              ) : (
+                <Ionicons name="image-outline" size={32} color="black" />
+              )}
             </ShareButton>
           </View>
-          {imageUri && <Image style={styles.image} source={{ uri: imageUri }} />}
         </View>
         <View>
           <Text style={styles.label}>Room Name:</Text>
@@ -158,10 +172,29 @@ export default function EditRoomScreen(): React.ReactElement {
             placeholder="Enter Area"
           />
         </View>
+         {/* Facility */}
+         <View style={{marginBottom: 10}}>
+          <Text style={styles.label}>Facilities</Text>
+          <Facility />
+        </View>
 
-        <ShareButton buttonStyle={{ backgroundColor: '#9dc4d2' }} onPress={handleCreateRoom}>
+        {/* Note */}
+        <View style={{marginBottom: 10}}>
+          <Text style={styles.label}>Note</Text>
+          <TextInput
+            style={{
+              ...styles.input,
+              height: 80,
+              flexWrap: 'wrap',
+              textAlignVertical: 'top',
+            }}
+            multiline={true}
+            numberOfLines={4} // Set the number of visible lines
+          />
+        </View>
+        <ShareButton buttonStyle={{ backgroundColor: '#9dc4d2', marginTop: 10 }} onPress={handleCreateRoom}>
           <RegularText textStyles={{ fontSize: 19, fontWeight: 'bold' }}>
-            Create Room
+            Edit room
           </RegularText>
         </ShareButton>
       </ScrollView>

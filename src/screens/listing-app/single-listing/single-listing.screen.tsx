@@ -111,7 +111,7 @@ export default function SingleListing(): React.ReactElement {
           </Animated.View>
 
           <Animated.View style={[styles.upperHeaderLight, forwardOpacityAnimation]}>
-            <FeatherIcon name="arrow-left" size={ICON_SIZE} color="black" />
+            <FeatherIcon name="arrow-left" size={ICON_SIZE} color="black" onPress={() => navigation.goBack()}/>
             <Animated.Text style={[
               {
                 fontFamily: 'sans-serif-medium',
@@ -272,7 +272,7 @@ export default function SingleListing(): React.ReactElement {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>
+                  <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 30 }}>
                     +{gallery.length - 5}
                   </Text>
                 </View>
