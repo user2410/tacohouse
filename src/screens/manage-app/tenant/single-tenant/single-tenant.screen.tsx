@@ -11,6 +11,8 @@ import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { history } from "./static";
 import ShareButton from "@components/button";
+import LoadingComponent from "@components/loading/loading";
+import ErrorComponent from "@components/error/error";
 
 export default function SingleTenantScreen() : React.ReactElement {
   const isFocused = useIsFocused();
@@ -51,9 +53,9 @@ export default function SingleTenantScreen() : React.ReactElement {
   }
 
   return isLoading ? (
-    <View><Text>Loading...</Text></View>
+    <LoadingComponent/>
   ) : error ? (
-    <View><Text>{error.message}</Text></View>
+    <ErrorComponent error={error}/>
   ) : (
     <SafeAreaView style={styles.container}>
       <ScrollView ref={scrollViewRef}>

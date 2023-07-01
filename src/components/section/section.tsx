@@ -1,18 +1,28 @@
 import { Color, FontSize, Margin, Padding } from "@assets/styles/global-styles";
 import { StyleSheet, Text, View } from "react-native";
+import { Text as RNPText } from "react-native-paper";
+import { VariantProp } from "react-native-paper/lib/typescript/src/components/Typography/types";
 
 interface Props {
   title: string;
+  titleVariant?: VariantProp<string>;
   children: React.ReactNode;
   bodyStyle?: object;
+  titleRight?: React.ReactNode;
 }
 
-export default function Section({title, children, bodyStyle = {}} : Props) {
+export default function Section({title, titleVariant = "headlineSmall", children, bodyStyle = {}, titleRight} : Props) {
   return (
     <View style={styles.sectionContainer}>
-      <Text style={styles.sectionTitle}>
-        {title}
-      </Text>
+      <View style={[
+        styles.sectionTitleView,
+        {
+          flexDirection: titleRight ? 'row' : 'column',
+          justifyContent: titleRight ? 'space-between' : 'flex-start',
+        }]}>
+        <RNPText variant={titleVariant}>{title}</RNPText>
+        {titleRight}
+      </View>
       <View style={bodyStyle}>
         {children}
       </View>
@@ -25,12 +35,7 @@ const styles = StyleSheet.create({
     padding: Padding.p_mini,
     backgroundColor: Color.sectionBgColor
   },
-  sectionTitle: {
+  sectionTitleView: {
     marginBottom: Margin.m_3xs,
-    textAlign: "left",
-    lineHeight: 24,
-    letterSpacing: 0.1,
-    fontSize: FontSize.size_sm,
-    color: Color.black,
   },
 })

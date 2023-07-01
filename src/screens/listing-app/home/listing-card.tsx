@@ -16,7 +16,7 @@ export const ListingCard = ({listing}: {listing: ListingEntity}) => {
       </Text>
       <View style={[styles.frameParent, styles.frameParentSpaceBlock]}>
         <View style={[styles.parent, styles.sqftFlexBox]}>
-          <Text style={styles.text}>${listing.price}</Text>
+          <Text style={styles.listingPrice}>${listing.price}</Text>
           <Text style={[styles.month, styles.areaTypo]}>/month</Text>
         </View>
         <Text style={[styles.sqft, styles.areaTypo]}>{listing.area} sqft</Text>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: Color.gray_100,
   },
-  text: {
+  listingPrice: {
     fontSize: FontSize.subheadlineBold_size,
     textAlign: "center",
     color: Color.gray_100,

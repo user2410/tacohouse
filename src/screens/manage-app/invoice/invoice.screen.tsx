@@ -3,6 +3,8 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import InvoiceItem from "./invoice-item";
 import { InvoiceService } from "@services/invoice.service";
 import { InvoiceEntity } from "@models/invoice.entity";
+import LoadingComponent from "@components/loading/loading";
+import ErrorComponent from "@components/error/error";
 
 export default function ManageInvoiceScreen(): React.ReactElement {
   const [invoices, setInvoices] = React.useState<InvoiceEntity[]>([]);
@@ -25,9 +27,9 @@ export default function ManageInvoiceScreen(): React.ReactElement {
   }, []);
 
   return isLoading ? (
-      <View><Text>Loading...</Text></View>
+      <LoadingComponent/>
     ) : error ? (
-      <View><Text>{JSON.stringify(error)}</Text></View>
+      <ErrorComponent error={error}/>
     ) : (
       <View style={styles.container}>
         <FlatList

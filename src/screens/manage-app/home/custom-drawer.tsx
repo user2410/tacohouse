@@ -149,7 +149,6 @@ export default function CustomDrawer() {
 
 const styles = StyleSheet.create({
   drawer: {
-    width: '60%',
     height: '100%',
     flexDirection: 'column',
   },

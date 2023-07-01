@@ -4,8 +4,9 @@ export const FontFamily = {
   robotoMedium: "Roboto_medium",
   robotoBold: "Roboto_bold",
   robotoLight: "Roboto_light",
-  robotoBlack: "Roboto_black",
   barlowSemibold: "Barlow_semibold",
+  robotoSemibold: "Roboto_semibold",
+  robotoBlack: "Roboto_black",
   subheadlineBold: "SF Pro Text_semibold",
   barlowMedium: "Barlow_medium",
 };
@@ -16,6 +17,7 @@ export const FontSize = {
   subheadlineBold_size: 15,
   size_sm: 14,
   size_lgi: 19,
+  size_base: 16,
 };
 /* Colors */
 export const Color = {

@@ -3,6 +3,7 @@ import { timeout } from "./settings";
 var listings: ListingEntity[] = [
 	{
 		id: '1',
+    propertyType: 'Apartment',
 		title: 'Căn hộ cho thuê - Khu trung tâm thành phố',
 		address: 'Số 123 Đường Chính, Quận Trung Tâm',
 		price: 1800,
@@ -19,6 +20,7 @@ var listings: ListingEntity[] = [
 	},
 	{
 		id: '2',
+    propertyType: 'Single Residence',
 		title: 'Nhà phố sang trọng tại Khu đô thị Xanh',
 		address: 'Số 456 Đường Hoa Sữa, Khu Đô Thị Xanh',
 		price: 2500,
@@ -35,6 +37,7 @@ var listings: ListingEntity[] = [
 	},
 	{
 		id: '3',
+    propertyType: 'Apartment',
 		title: 'Chung cư cao cấp với view sông đẹp',
 		address: 'Số 789 Đường Nguyễn Hữu Cảnh, Quận 2',
 		price: 3500,
@@ -51,6 +54,7 @@ var listings: ListingEntity[] = [
 	},
 	{
 		id: '4',
+    propertyType: 'Single Residence',
 		title: 'Biệt thự hiện đại với sân vườn rộng',
 		address: 'Số 10 Đường Lê Văn Lương, Quận 7',
 		price: 5000,
@@ -67,6 +71,7 @@ var listings: ListingEntity[] = [
 	},
   {
     id: '5',
+    propertyType: 'Apartment',
     title: 'Căn hộ thoáng mát gần bãi biển',
     address: 'Số 111 Đường Biển Xanh, Quận Sơn Trà',
     price: 2000,
@@ -83,6 +88,7 @@ var listings: ListingEntity[] = [
   },
   {
     id: '6',
+    propertyType: 'Room',
     title: 'Phòng trọ tiện nghi tại khu phố ẩm thực',
     address: 'Số 222 Đường Ẩm Thực, Quận Bình Thạnh',
     price: 1000,

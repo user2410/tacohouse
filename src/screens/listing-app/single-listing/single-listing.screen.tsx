@@ -2,16 +2,18 @@ import { ListingNavigatorParams } from '@navigation/listing-app/listing-app.navi
 import { RouteProp, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import ListingService from '@services/listing.service';
 import React from 'react';
-import { Animated, Image, ImageBackground, SafeAreaView, ScrollView, StatusBar, Text, View } from 'react-native';
+import { Animated, FlatList, Image, ImageBackground, SafeAreaView, ScrollView, SectionList, StatusBar, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // import styles from './single-listing.style';
-import { Border, Padding } from '@assets/styles/global-styles';
+import { Border, Margin, Padding } from '@assets/styles/global-styles';
 import MapView, { Marker } from 'react-native-maps';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { gallery } from './static';
 import styles, { ICON_SIZE } from './single-listing.style';
+import { gallery } from './static';
+import ErrorComponent from '@components/error/error';
+import LoadingComponent from '@components/loading/loading';
 
 export default function SingleListing(): React.ReactElement {
   const isFocused = useIsFocused();
@@ -73,13 +75,9 @@ export default function SingleListing(): React.ReactElement {
   }
 
   return isLoading ? (
-    <SafeAreaView>
-      <Text>Loading ... </Text>
-    </SafeAreaView>
+    <LoadingComponent/>
   ) : error ? (
-    <SafeAreaView>
-      <Text>{JSON.stringify(error)}</Text>
-    </SafeAreaView>
+    <ErrorComponent error={error} />
   ) : (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -111,7 +109,7 @@ export default function SingleListing(): React.ReactElement {
           </Animated.View>
 
           <Animated.View style={[styles.upperHeaderLight, forwardOpacityAnimation]}>
-            <FeatherIcon name="arrow-left" size={ICON_SIZE} color="black" onPress={() => navigation.goBack()}/>
+            <FeatherIcon name="arrow-left" size={ICON_SIZE} color="black" onPress={() => navigation.goBack()} />
             <Animated.Text style={[
               {
                 fontFamily: 'sans-serif-medium',
@@ -198,41 +196,22 @@ export default function SingleListing(): React.ReactElement {
           <View style={styles.divider} />
           <View style={styles.section}>
             <Text style={styles.title}>Property Features</Text>
-            <View style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}>
-              {
-                ['Balcony', 'Air conditioning', 'Dish washer', 'Internal laundry', 'Broadband Internet Access', 'Washing Machine'].map((item, index) => (
-                  <View
-                    key={index}
-                    style={{
-                      minWidth: '48%',
-                      flexDirection: 'row',
-                      gap: 5,
-                      flexWrap: 'wrap',
-                    }}>
-                    <FeatherIcon name="check" size={ICON_SIZE} color="green" />
-                    <Text numberOfLines={1}>{item}</Text>
-                  </View>
-                ))
-              }
-            </View>
-            {/* <FlatList
-              data={['Balcony', 'Air conditioning', 'Dish washer', 'Internal Laundry', 'Broadband Internet Access']}
+            <FlatList
+              data={['Balcony', 'Air conditioning', 'Dish washer', 'Internal Laundry', 'Broadband Internet Access', 'Washing machine']}
+              keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
                 <View style={{
+                  flex: 1,
                   flexDirection: 'row',
                   gap: 5,
-                  flexWrap: 'wrap',
                 }}>
                   <FeatherIcon name="check" size={ICON_SIZE} color="green" />
-                  <Text>{item}</Text>
+                  <Text numberOfLines={1}>{item}</Text>
                 </View>
               )}
-              keyExtractor={item => item}
               numColumns={2}
-            /> */}
+              scrollEnabled={false}
+            />
           </View>
           <View style={styles.divider} />
           <View style={styles.section}>
@@ -244,40 +223,42 @@ export default function SingleListing(): React.ReactElement {
           <View style={styles.divider} />
           <View style={styles.section}>
             <Text style={styles.title}>Gallery</Text>
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              flexWrap: 'wrap',
-              gap: 20,
-            }}>
-              {gallery.slice(0, 5).map((item, index) => (
-                <View key={index}>
-                  <Image
-                    style={{
+            <FlatList
+              data={gallery.slice(0, 6)}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => (
+                gallery.length > 5 && index === 5 ? (
+                  <View style={{ flex: 1, justifyContent: 'center', marginVertical: Margin.m_3xs }}>
+                    <View style={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
                       borderRadius: Border.br_8xs,
                       width: 97,
                       height: 97,
-                    }}
-                    resizeMode="cover"
-                    source={{ uri: item.imageSource }}
-                  />
-                </View>
-              ))}
-              {gallery.length > 5 ?
-                <View style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                  borderRadius: Border.br_8xs,
-                  width: 97,
-                  height: 97,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                  <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 30 }}>
-                    +{gallery.length - 5}
-                  </Text>
-                </View>
-                : null}
-            </View>
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 30 }}>
+                        +{gallery.length - 5}
+                      </Text>
+                    </View>
+                  </View>
+                ) : (
+                  <View style={{ flex: 1, justifyContent: 'center', marginVertical: Margin.m_3xs }}>
+                    <Image
+                      style={{
+                        borderRadius: Border.br_8xs,
+                        width: 97,
+                        height: 97,
+                      }}
+                      resizeMode="cover"
+                      source={{ uri: item }}
+                    />
+                  </View>
+                ))
+              }
+              numColumns={3}
+              scrollEnabled={false}
+            />
           </View>
           <View style={styles.divider} />
           <View style={styles.section}>
@@ -327,7 +308,41 @@ export default function SingleListing(): React.ReactElement {
                 </View>
               ))
             } */}
-            <View>
+            <SectionList
+              sections={[
+                {
+                  title: 'Pet Policy',
+                  data: ['Item 1-1', 'Item 1-2', 'Item 1-3'],
+                },
+                {
+                  title: 'Title 2',
+                  data: ['Item 2-1', 'Item 2-2', 'Item 2-3'],
+                },
+                {
+                  title: 'Title 3',
+                  data: ['Item 3-1'],
+                },
+                {
+                  title: 'Title 4',
+                  data: ['Item 4-1', 'Item 4-2'],
+                },
+              ]}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <Text>{item}</Text>
+              )}
+              renderSectionHeader={({ section }) => (
+                <View>
+                  <Text style={{
+                    flexDirection: 'column',
+                    gap: 5,
+                    paddingLeft: Padding.p_3xs,
+                  }}>{section.title}</Text>
+                </View>
+              )}
+              scrollEnabled={false}
+            />
+            {/* <View>
               <Text style={{
                 fontWeight: 'bold',
                 fontSize: 16,
@@ -364,7 +379,7 @@ export default function SingleListing(): React.ReactElement {
               }}>
                 <Text>Monthly</Text>
               </View>
-            </View>
+            </View> */}
           </View>
         </View>
       </ScrollView>

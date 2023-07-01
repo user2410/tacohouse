@@ -17,6 +17,8 @@ import { ManageAppParamList } from "@navigation/manage-app/manage-app.navigator"
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { RoomService } from "@services/room.service";
 import { Button, Text } from "react-native-paper";
+import LoadingComponent from "@components/loading/loading";
+import ErrorComponent from "@components/error/error";
 
 export function SingleRoomScreen(): React.ReactElement {
   const navigation = useNavigation<BottomTabNavigationProp<ManageAppParamList, 'SingleRoom'>>();
@@ -49,9 +51,9 @@ export function SingleRoomScreen(): React.ReactElement {
   }, []);
 
   return isLoading ? (
-    <View><Text>Loading...</Text></View>
+    <LoadingComponent/>
   ) : error ? (
-    <View><Text>{error.message}</Text></View>
+    <ErrorComponent error={error}/>
   ) :(
     <SafeAreaView style={{
       backgroundColor: 'white',

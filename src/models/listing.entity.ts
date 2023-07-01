@@ -1,5 +1,6 @@
 type ListingEntity = {
 	id: string;
+  propertyType: 'Room' | 'Single Residence' | 'Apartment';
 	title: string;
 	address: string;
 	price: number;
@@ -13,5 +14,6 @@ type ListingEntity = {
 		longtitude: number;
 		latitudeDelta?: number;
 		longitudeDelta?: number;
-	}
+	},
+  isActive?: boolean;
 } 

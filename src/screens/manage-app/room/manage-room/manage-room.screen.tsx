@@ -7,6 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 import { ManageAppParamList } from "@navigation/manage-app/manage-app.navigator";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import BigText from "@components/text/BigText";
+import LoadingComponent from "@components/loading/loading";
+import ErrorComponent from "@components/error/error";
 
 export default function ManageRoomsScreen(): React.ReactElement {
   const navigation = useNavigation<BottomTabNavigationProp<ManageAppParamList, 'ManageRooms'>>();
@@ -31,9 +33,9 @@ export default function ManageRoomsScreen(): React.ReactElement {
   }, []);
 
   return isLoading ? (
-    <View><Text>Loading...</Text></View>
+    <LoadingComponent/>
   ) : error ? (
-    <View><Text>{JSON.stringify(error)}</Text></View>
+    <ErrorComponent error={error}/>
   ) : (
     <View style={styles.container}>
       <FlatList

@@ -1,4 +1,4 @@
-import { Padding } from "@assets/styles/global-styles";
+import { Margin, Padding } from "@assets/styles/global-styles";
 import { Dimensions, StyleSheet } from "react-native";
 
 export const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window');
