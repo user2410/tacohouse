@@ -7,11 +7,20 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { PropertyService } from "@services/property.service";
 import React from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import PropertyItem from "../property-item";
+import PropertyItem from "@components/property/property-item";
 import CreateListingLayout from "./layout";
 import NavigationButton from "./navigation-button";
+import { PropertyEntity } from "@models/property.entity";
+import { AppState } from "@store/store";
+import { bindActionCreators } from "@reduxjs/toolkit";
+import { saveSelectedProperty } from "@store/create-listing/action";
+import { connect } from "react-redux";
+import { CreateListingState } from "@store/create-listing/state";
 
-export default function SelectPropertyScreen() {
+const Screen = ({saveSelectedProperty, createListing} : {
+  createListing: CreateListingState;
+  saveSelectedProperty: Function;
+}) => {
   const navigation = useNavigation<StackNavigationProp<CreateLisitingNavigatorParams, 'SelectProperty'>>();
 
   // const [refreshing, setRefreshing] = React.useState<boolean>(false);
@@ -34,11 +43,18 @@ export default function SelectPropertyScreen() {
     })()
   }, []);
 
+  React.useEffect(() => {
+    console.log(createListing);
+  }, [createListing]);
+
   return (
     <CreateListingLayout
       title="Select your property"
       leftNavBtn={<Pressable onPress={() => navigation.replace('QuickCreateProperty')}><Text>Create quick listing</Text></Pressable>}
-      rightNavBtn={<NavigationButton next disabled={selectedProperty === undefined} onPress={() => navigation.navigate('CreateListingDetails')} />}
+      rightNavBtn={<NavigationButton next disabled={selectedProperty === undefined} onPress={() => {
+        saveSelectedProperty(properties.find(p => p.id === selectedProperty));
+        navigation.navigate('CreateListingDetails');
+      }} />}
     >
       {
         loading ? (
@@ -67,6 +83,21 @@ export default function SelectPropertyScreen() {
     </CreateListingLayout>
   );
 }
+
+const mapStateToProps = (store: AppState) => ({
+  createListing: store.createListing,
+});
+
+const mapDispatchToProps = (dispatch: any) => 
+  bindActionCreators(
+    {
+      saveSelectedProperty
+    },
+    dispatch
+  );
+
+const SelectPropertyScreen = connect(mapStateToProps, mapDispatchToProps)(Screen);
+export default SelectPropertyScreen;
 
 const styles = StyleSheet.create({
   container: {

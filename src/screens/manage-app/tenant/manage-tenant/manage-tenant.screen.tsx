@@ -11,7 +11,7 @@ import {
 import RegularText from "@components/text/RegularText";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 import BigText from "@components/text/BigText";
-import { TenantService } from "@services/tenant.service";
+import { TenantService } from "@services/user.service";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { ManageAppParamList } from "@navigation/manage-app/manage-app.navigator";
 import { useNavigation } from "@react-navigation/native";

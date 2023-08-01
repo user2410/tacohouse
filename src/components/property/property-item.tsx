@@ -1,4 +1,5 @@
 import { Color, FontFamily, FontSize } from "@assets/styles/global-styles";
+import { PropertyEntity } from "@models/property.entity";
 import { Image, StyleSheet, Text, View } from "react-native";
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -13,28 +14,28 @@ export default function PropertyItem({ property }: PropertyItemProps) {
     <View style={styles.container}>
       <Image
         resizeMode="cover"
-        source={{ uri: property.images[0] }}
+        source={{ uri: property.media[0].url }}
         style={styles.image} />
       <View style={styles.detailsContainer}>
         <View style={[
-          styles.propertyTypeWrapper,
+          styles.typeWrapper,
           {
             backgroundColor:
-              property.propertyType === 'Apartment' ? '#007bff' :
-              property.propertyType === 'Room' ? '#dc3545' :
-              property.propertyType === 'Single Residence' ? '#ffc107' :
+              property.type === 'apartment' ? '#007bff' :
+              property.type === 'room' ? '#dc3545' :
+              property.type === 'single_residence' ? '#ffc107' :
               '#f0f0f0'
           }]}>
           <Text style={[
-            styles.propertyTypeText,
+            styles.typeText,
             {
               color:
-                // property.propertyType === 'Apartment' ? '#fff' :
-                // property.propertyType === 'Room' ? '#fff' :
-                // property.propertyType === 'Single Residence' ? '#fff' :
+                // property.type === 'Apartment' ? '#fff' :
+                // property.type === 'Room' ? '#fff' :
+                // property.type === 'Single Residence' ? '#fff' :
                 '#f0f0f0'
             }
-          ]}>{property.propertyType}</Text>
+          ]}>{property.type}</Text>
         </View>
         <Text style={styles.propertyName} numberOfLines={1}>
           {property.name}
@@ -48,16 +49,16 @@ export default function PropertyItem({ property }: PropertyItemProps) {
         }}>
           {[
             {
-              icon: <MaterialCommunityIcon name="sofa-outline" size={ICON_SIZE} />,
-              quantity: 1,
+              icon: <MaterialCommunityIcon name="kettle" size={ICON_SIZE} />,
+              quantity: property.units[0].nKitchens,
             },
             {
               icon: <MaterialCommunityIcon name="bed" size={ICON_SIZE} />,
-              quantity: 3,
+              quantity: property.units[0].nBedrooms,
             },
             {
               icon: <MaterialCommunityIcon name="bathtub" size={ICON_SIZE} />,
-              quantity: 2,
+              quantity: property.units[0].nBathrooms,
             },
             {
               icon: <MaterialCommunityIcon name="crop-square" size={ICON_SIZE} />,
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     flex: 1,
   },
-  propertyTypeWrapper: {
+  typeWrapper: {
     borderRadius: 4,
     // borderStyle: "solid",
     // borderColor: "#000",
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     padding: 4,
     alignSelf: "flex-start",
   },
-  propertyTypeText: {
+  typeText: {
     fontFamily: FontFamily.robotoMedium,
     fontSize: FontSize.size_sm,
     textAlign: "left",

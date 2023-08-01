@@ -1,4 +1,5 @@
 import { Color, Padding } from "@assets/styles/global-styles";
+import { PropertyType, propertyTypeToText } from "@models/property.entity";
 import React from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { List as RNPList } from "react-native-paper";
@@ -8,7 +9,7 @@ interface SelectTypeModalProps {
   closeModal: () => void;
 }
 
-const propertyTypes = ['Apartment', 'Single Residence', 'Room'];
+const propertyTypes: PropertyType[] = ['room', 'apartment', 'single_residence'];
 export default function SelectPropertyTypeModal({ handleSelectType, closeModal }: SelectTypeModalProps) {
   return (
     <View 
@@ -25,7 +26,7 @@ export default function SelectPropertyTypeModal({ handleSelectType, closeModal }
                 key={index}
                 android_ripple={{ color: Color.androidRipple }}
                 onPress={() => handleSelectType(item)}>
-                <RNPList.Item title={item} />
+                <RNPList.Item title={propertyTypeToText(item)} />
               </Pressable>
             ))}
           </ScrollView>

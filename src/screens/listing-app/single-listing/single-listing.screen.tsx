@@ -2,18 +2,22 @@ import { ListingNavigatorParams } from '@navigation/listing-app/listing-app.navi
 import { RouteProp, useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import ListingService from '@services/listing.service';
 import React from 'react';
-import { Animated, FlatList, Image, ImageBackground, SafeAreaView, ScrollView, SectionList, StatusBar, Text, View } from 'react-native';
+import { Animated, ImageBackground, SafeAreaView, ScrollView, StatusBar, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // import styles from './single-listing.style';
-import { Border, Margin, Padding } from '@assets/styles/global-styles';
+import { Padding } from '@assets/styles/global-styles';
+import ErrorComponent from '@components/error/error';
+import LoadingComponent from '@components/loading/loading';
+import { ListingEntity } from '@models/listing.entity';
 import MapView, { Marker } from 'react-native-maps';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles, { ICON_SIZE } from './single-listing.style';
-import { gallery } from './static';
-import ErrorComponent from '@components/error/error';
-import LoadingComponent from '@components/loading/loading';
+import GalleryComponent from '@components/gallery/gallery';
+import PolicyNoteItem from '@components/listing/policy-note-item';
+import { Text as RNPText } from 'react-native-paper';
+import Section from '@components/section/section';
 
 export default function SingleListing(): React.ReactElement {
   const isFocused = useIsFocused();
@@ -24,8 +28,8 @@ export default function SingleListing(): React.ReactElement {
     navigation.goBack();
   }
 
-  const [listing, setListing] = React.useState<ListingEntity | undefined>(undefined);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [listing, setListing] = React.useState<ListingEntity>();
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<any>(undefined);
 
   const animatedValue = React.useRef(new Animated.Value(0)).current;
@@ -36,9 +40,12 @@ export default function SingleListing(): React.ReactElement {
     (async () => {
       try {
         setIsLoading(true);
-        const listing = await ListingService.getSingleListing(id);
-        // console.log('listing', listing);
-        setListing(listing);
+        const res = await ListingService.getSingleListing(id);
+        if (!res) {
+          throw new Error('Listing not found');
+        }
+        console.log(`listing ${id}:`, res);
+        setListing(res);
       } catch (err) {
         console.error(err);
         setError(err);
@@ -75,10 +82,10 @@ export default function SingleListing(): React.ReactElement {
   }
 
   return isLoading ? (
-    <LoadingComponent/>
+    <LoadingComponent />
   ) : error ? (
     <ErrorComponent error={error} />
-  ) : (
+  ) : listing ? (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
 
@@ -87,7 +94,7 @@ export default function SingleListing(): React.ReactElement {
       </SafeAreaView>
 
       <SafeAreaView style={styles.header}>
-        <ImageBackground source={{ uri: listing?.thumbnailImg }} style={{ position: 'relative' }}>
+        <ImageBackground source={{ uri: 'https://pt123.cdn.static123.com/images/thumbs/450x300/fit/2021/10/27/17f127e466893fd370b536e3d9cd0b15-2742471474502885792_1635303858.jpg' }} style={{ position: 'relative' }}>
 
           <Animated.View style={[styles.upperHeaderTransparent, backwardOpacityAnimation]}>
             <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
@@ -157,7 +164,7 @@ export default function SingleListing(): React.ReactElement {
               {listing?.title}
             </Animated.Text>
             <Text style={styles.price}>${listing?.price} / month</Text>
-            <Text style={styles.address}>{listing?.address}</Text>
+            <Text style={styles.address}>{listing?.property.address}</Text>
             <Text style={styles.address}>Apartment</Text>
             <View style={{
               flexDirection: 'row',
@@ -178,7 +185,7 @@ export default function SingleListing(): React.ReactElement {
                 },
                 {
                   icon: <MaterialCommunityIcon name="crop-square" size={ICON_SIZE} />,
-                  quantity: listing?.area,
+                  quantity: listing?.property.area,
                 },
               ].map((item, index) => (
                 <View
@@ -196,69 +203,62 @@ export default function SingleListing(): React.ReactElement {
           <View style={styles.divider} />
           <View style={styles.section}>
             <Text style={styles.title}>Property Features</Text>
-            <FlatList
-              data={['Balcony', 'Air conditioning', 'Dish washer', 'Internal Laundry', 'Broadband Internet Access', 'Washing machine']}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  gap: 5,
-                }}>
-                  <FeatherIcon name="check" size={ICON_SIZE} color="green" />
-                  <Text numberOfLines={1}>{item}</Text>
-                </View>
-              )}
-              numColumns={2}
-              scrollEnabled={false}
-            />
+            <View style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}>
+              {
+                listing?.property?.features?.map(f => f.feature).map((item, index) => (
+                  <View
+                    key={index}
+                    style={{
+                      minWidth: '48%',
+                      flexDirection: 'row',
+                      gap: 5,
+                      flexWrap: 'wrap',
+                    }}>
+                    <FeatherIcon name="check" size={ICON_SIZE} color="green" />
+                    <Text numberOfLines={1}>{item}</Text>
+                  </View>
+                ))
+              }
+            </View>
+          </View>
+          <View style={styles.divider} />
+          <View style={styles.section}>
+            <Text style={styles.title}>Property Amenities</Text>
+            <View style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}>
+              {
+                listing?.property?.amenities?.map(a => a.amenity).map((item, index) => (
+                  <View
+                    key={index}
+                    style={{
+                      minWidth: '48%',
+                      flexDirection: 'row',
+                      gap: 5,
+                      flexWrap: 'wrap',
+                    }}>
+                    <FeatherIcon name="check" size={ICON_SIZE} color="green" />
+                    <Text numberOfLines={1}>{item}</Text>
+                  </View>
+                ))
+              }
+            </View>
           </View>
           <View style={styles.divider} />
           <View style={styles.section}>
             <Text style={styles.title}>Property Overview</Text>
             <Text style={styles.paragraph}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, unde eveniet! Repudiandae aut, dolor repellat temporibus, doloremque obcaecati quam quis eveniet eum impedit dolore repellendus, suscipit consequuntur voluptate deleniti possimus.
+              {listing?.description}
             </Text>
           </View>
           <View style={styles.divider} />
           <View style={styles.section}>
             <Text style={styles.title}>Gallery</Text>
-            <FlatList
-              data={gallery.slice(0, 6)}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item, index }) => (
-                gallery.length > 5 && index === 5 ? (
-                  <View style={{ flex: 1, justifyContent: 'center', marginVertical: Margin.m_3xs }}>
-                    <View style={{
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                      borderRadius: Border.br_8xs,
-                      width: 97,
-                      height: 97,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 30 }}>
-                        +{gallery.length - 5}
-                      </Text>
-                    </View>
-                  </View>
-                ) : (
-                  <View style={{ flex: 1, justifyContent: 'center', marginVertical: Margin.m_3xs }}>
-                    <Image
-                      style={{
-                        borderRadius: Border.br_8xs,
-                        width: 97,
-                        height: 97,
-                      }}
-                      resizeMode="cover"
-                      source={{ uri: item }}
-                    />
-                  </View>
-                ))
-              }
-              numColumns={3}
-              scrollEnabled={false}
-            />
+            <GalleryComponent items={listing?.property.media!} tileSize={97} />
           </View>
           <View style={styles.divider} />
           <View style={styles.section}>
@@ -269,8 +269,8 @@ export default function SingleListing(): React.ReactElement {
                 height: 200,
               }}
               initialRegion={{
-                latitude: 21.007076103786403,
-                longitude: 105.84310564167778,
+                latitude: listing?.property.location.lat!,
+                longitude: listing?.property.location.lng!,
                 latitudeDelta: 0.00922,
                 longitudeDelta: 0.00421,
               }}
@@ -278,71 +278,15 @@ export default function SingleListing(): React.ReactElement {
               <Marker
                 description="This is a description"
                 coordinate={{
-                  latitude: 21.00667543819238,
-                  longitude: 105.84834190302948,
+                  latitude: listing?.property.location.lat!,
+                  longitude: listing?.property.location.lng!,
                 }} />
             </MapView>
           </View>
           <View style={styles.divider} />
           <View style={styles.section}>
             <Text style={styles.title}>Policies</Text>
-            {/* {
-              [
-                {
-                  title: 'Pets Policy',
-                  iconLeft: <MaterialCommunityIcon name="dog" size={ICON_SIZE} />,
-                  iconRight: <FeatherIcon name="chevron-down" size={ICON_SIZE} />,
-                  allow: ['Cats', 'Dogs'],
-                  note: 'Vaccinated, Trained, Friendly',
-                },
-                {
-                  title: 'Rental Payment',
-                  iconLeft: <MaterialCommunityIcon name="cash" size={ICON_SIZE} />,
-                  iconRight: <FeatherIcon name="chevron-down" size={ICON_SIZE} />,
-                  note: 'Monthly',
-                }
-              ].map((item, index) => (
-                <View key={index}>
-                  <Text>{item.title}</Text>
-
-                </View>
-              ))
-            } */}
-            <SectionList
-              sections={[
-                {
-                  title: 'Pet Policy',
-                  data: ['Item 1-1', 'Item 1-2', 'Item 1-3'],
-                },
-                {
-                  title: 'Title 2',
-                  data: ['Item 2-1', 'Item 2-2', 'Item 2-3'],
-                },
-                {
-                  title: 'Title 3',
-                  data: ['Item 3-1'],
-                },
-                {
-                  title: 'Title 4',
-                  data: ['Item 4-1', 'Item 4-2'],
-                },
-              ]}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <Text>{item}</Text>
-              )}
-              renderSectionHeader={({ section }) => (
-                <View>
-                  <Text style={{
-                    flexDirection: 'column',
-                    gap: 5,
-                    paddingLeft: Padding.p_3xs,
-                  }}>{section.title}</Text>
-                </View>
-              )}
-              scrollEnabled={false}
-            />
-            {/* <View>
+            <View>
               <Text style={{
                 fontWeight: 'bold',
                 fontSize: 16,
@@ -352,37 +296,21 @@ export default function SingleListing(): React.ReactElement {
                 gap: 5,
                 paddingLeft: Padding.p_3xs,
               }}>
-                {['Cat', 'Dog'].map((item, index) => (
-                  <View
-                    key={index}
-                    style={{
-                      width: '100%',
-                      flexDirection: 'row',
-                      gap: 5,
-                      flexWrap: 'wrap',
-                    }}>
-                    <FeatherIcon name="check" size={ICON_SIZE} color="green" />
-                    <Text numberOfLines={1}>{item}</Text>
-                  </View>
-                ))}
-                <Text>Vaccinated, Trained, Friendly</Text>
+                {listing.policies.map((policy, index) => (
+                  <Section key={index} title={policy.title} titleVariant="titleSmall">
+                    {policy.notes.map((note, index) => (
+                      <PolicyNoteItem key={index} item={
+                        (<RNPText variant="bodyMedium">{note}</RNPText>)
+                      } />
+                    ))}
+                  </Section>
+                ))
+                }
               </View>
             </View>
-            <View style={styles.divider} />
-            <View>
-              <Text style={{
-                fontWeight: 'bold',
-                fontSize: 16,
-              }}>Rental Payment</Text>
-              <View style={{
-                paddingLeft: Padding.p_3xs,
-              }}>
-                <Text>Monthly</Text>
-              </View>
-            </View> */}
           </View>
         </View>
       </ScrollView>
     </View>
-  );
+  ) : <View></View>;
 }

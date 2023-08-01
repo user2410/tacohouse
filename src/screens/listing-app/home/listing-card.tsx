@@ -1,4 +1,6 @@
 import { Color, FontFamily, FontSize, Margin, Padding } from "@assets/styles/global-styles"
+import { ListingEntity } from "@models/listing.entity"
+import { nFormatter } from "@utils/nformatter"
 import { Image, StyleSheet, Text, View } from "react-native"
 
 export const ListingCard = ({listing}: {listing: ListingEntity}) => {
@@ -7,19 +9,19 @@ export const ListingCard = ({listing}: {listing: ListingEntity}) => {
     <Image
       style={styles.listingImage}
       resizeMode="cover"
-      source={{uri: listing.thumbnailImg}}
+      source={{uri: listing.property.media[0].url}}
     />
     <View style={styles.listingDetails}>
       <Text style={styles.listingTitle} numberOfLines={2}>{listing.title}</Text>
       <Text style={[styles.lisitingAddress, styles.frameParentSpaceBlock]} numberOfLines={2}>
-        {listing.address}
+        {listing.property.address}
       </Text>
       <View style={[styles.frameParent, styles.frameParentSpaceBlock]}>
         <View style={[styles.parent, styles.sqftFlexBox]}>
-          <Text style={styles.listingPrice}>${listing.price}</Text>
+          <Text style={styles.listingPrice}>{nFormatter(listing.price, 1)}</Text>
           <Text style={[styles.month, styles.areaTypo]}>/month</Text>
         </View>
-        <Text style={[styles.sqft, styles.areaTypo]}>{listing.area} sqft</Text>
+        <Text style={[styles.sqft, styles.areaTypo]}>{listing.property.area} sqft</Text>
       </View>
     </View>
     <Image

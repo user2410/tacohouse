@@ -1,17 +1,15 @@
-import React from 'react';
-import { Button, Modal, Pressable, Text, View } from 'react-native';
-import styles from './home.styles';
-import { Image } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { AppStackParamList } from '@navigation/app.navigator';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { ManageAppParamList } from '@navigation/manage-app/manage-app.navigator';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
 import Section from '@components/section/section';
+import { AppStackParamList } from '@navigation/app.navigator';
+import { ManageAppParamList } from '@navigation/manage-app/manage-app.navigator';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React from 'react';
+import { Image, Pressable, Text, View } from 'react-native';
+import { Drawer } from 'react-native-drawer-layout';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import CustomDrawer from './custom-drawer';
-import { Drawer } from 'react-native-drawer-layout';
+import styles from './home.styles';
 
 type AppHomeNavProps = StackNavigationProp<AppStackParamList>;
 type ManageNavProps = BottomTabNavigationProp<ManageAppParamList>;
@@ -54,15 +52,15 @@ export default function ManageHomeScreen() {
         <Section title="Manage Items" bodyStyle={styles.manageCardContainer}>
           <>
             {[
-              {
-                imgSource: require('@assets/icons/manage-items/hostel.png'),
-                title: 'Hostels',
-                onPress: () => { },
-              },
+              // {
+              //   imgSource: require('@assets/icons/manage-items/hostel.png'),
+              //   title: 'Hostels',
+              //   onPress: () => { },
+              // },
               {
                 imgSource: require('@assets/icons/manage-items/room.png'),
-                title: 'Rooms',
-                onPress: () => manageAppNavigation.navigate('ManageRooms'),
+                title: 'Properties',
+                onPress: () => manageAppNavigation.navigate('ManageProperties'),
               },
               {
                 imgSource: require('@assets/icons/manage-items/services.png'),
@@ -74,11 +72,11 @@ export default function ManageHomeScreen() {
                 title: 'Contracts',
                 onPress: () => { },
               },
-              {
-                imgSource: require('@assets/icons/manage-items/water-tap.png'),
-                title: 'Electric and Water',
-                onPress: () => { },
-              },
+              // {
+              //   imgSource: require('@assets/icons/manage-items/water-tap.png'),
+              //   title: 'Electric and Water',
+              //   onPress: () => { },
+              // },
               {
                 imgSource: require('@assets/icons/manage-items/reservation.png'),
                 title: 'Reservation',

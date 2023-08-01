@@ -1,4 +1,5 @@
 import { Color, FontFamily, FontSize } from "@assets/styles/global-styles";
+import { ListingEntity } from "@models/listing.entity";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -13,14 +14,14 @@ export default function ListingItem({ listing }: ListingItemProps) {
     <Pressable style={styles.container}>
       <Image
         resizeMode="cover"
-        source={{ uri: listing.thumbnailImg }}
+        source={{ uri: listing.property.media[0].url }}
         style={styles.image} />
       <View style={styles.detailsContainer}>
         <Text style={styles.listingTitle} numberOfLines={1}>
           {listing.title}
         </Text>
         <Text style={styles.listingAddress} numberOfLines={1}>
-          {listing.address}
+          {listing.property.address}
         </Text>
         <View style={styles.priceContainer}>
           <Text style={styles.listingPrice}>${listing.price}</Text>
@@ -45,7 +46,7 @@ export default function ListingItem({ listing }: ListingItemProps) {
             },
             {
               icon: <MaterialCommunityIcon name="crop-square" size={ICON_SIZE} />,
-              quantity: listing.area,
+              quantity: listing.property.area,
             },
           ].map((item, index) => (
             <View

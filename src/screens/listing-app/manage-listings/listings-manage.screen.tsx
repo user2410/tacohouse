@@ -1,15 +1,16 @@
 import { Margin } from '@assets/styles/global-styles';
+import ErrorComponent from '@components/error/error';
+import LoadingComponent from '@components/loading/loading';
+import { ListingEntity } from '@models/listing.entity';
 import { ListingNavigatorParams } from '@navigation/listing-app/listing-app.navigator';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import ListingService from '@services/listing.service';
 import React from 'react';
-import { FlatList, RefreshControl, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, RefreshControl, SafeAreaView, StyleSheet, View } from 'react-native';
 import { FAB } from 'react-native-paper';
 import { SceneMap, TabView } from 'react-native-tab-view';
 import ListingItem from './listing-item';
-import LoadingComponent from '@components/loading/loading';
-import ErrorComponent from '@components/error/error';
 
 type ListingManageProps = BottomTabNavigationProp<
   ListingNavigatorParams,

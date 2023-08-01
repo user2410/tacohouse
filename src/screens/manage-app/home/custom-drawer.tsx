@@ -1,8 +1,3 @@
-import {
-  DrawerContentComponentProps,
-  DrawerContentScrollView,
-  DrawerItemList,
-} from '@react-navigation/drawer';
 import React from 'react';
 import {
   Image,
@@ -15,8 +10,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Text } from 'react-native-paper';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const ICON_SIZE = 22;
 
@@ -25,18 +20,18 @@ const bodyItems = [
     icon: <FontAwesome5Icon name="home" size={ICON_SIZE} />,
     title: 'Dashboard',
   },
-  {
-    icon: <FontAwesome5Icon name="building" size={ICON_SIZE} />,
-    title: 'Manage Hostels',
-  },
+  // {
+  //   icon: <FontAwesome5Icon name="building" size={ICON_SIZE} />,
+  //   title: 'Manage Hostels',
+  // },
   {
     icon: <FontAwesome5Icon name="building" size={ICON_SIZE} />,
     title: 'Services',
   },
-  {
-    icon: <FontAwesome5Icon name="faucet" size={ICON_SIZE} />,
-    title: 'Electric and water',
-  },
+  // {
+  //   icon: <FontAwesome5Icon name="faucet" size={ICON_SIZE} />,
+  //   title: 'Electric and water',
+  // },
   {
     icon: <FontAwesome5Icon name="file-contract" size={ICON_SIZE} />,
     title: 'Contracts',

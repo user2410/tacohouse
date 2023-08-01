@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ManageHomeScreen from '@screens/manage-app/home/home.screen';
 import ManageInvoiceScreen from '@screens/manage-app/invoice/invoice.screen';
-import CreateRoomScreen from '@screens/manage-app/room/create-room/create-room.screen';
-import EditRoomScreen from '@screens/manage-app/room/edit-room/edit-room.screen';
-import ManageRoomsScreen from '@screens/manage-app/room/manage-room/manage-room.screen';
-import { SingleRoomScreen } from '@screens/manage-app/room/single-room/single-room.screen';
+import CreatePropertyScreen from '@screens/manage-app/property/create-property/create-property.screen';
+import EditPropertyScreen from '@screens/manage-app/property/edit-property/edit-property.screen';
+import ManagePropertiesScreen from '@screens/manage-app/property/manage-properties/manage-properties.screen';
+import { SinglePropertyScreen } from '@screens/manage-app/property/single-property/single-property.screen';
 import ManageTenantsScreen from '@screens/manage-app/tenant/manage-tenant/manage-tenant.screen';
 import SingleTenantScreen from '@screens/manage-app/tenant/single-tenant/single-tenant.screen';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -12,16 +12,17 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 export type ManageAppParamList = {
   Home: undefined;
   ManageInvoices: undefined;
-  Chat: undefined;
-  Problem: undefined;
-
-  ManageRooms: undefined;
-  CreateRoom: undefined;
-  EditRoom: { id: string };
-  SingleRoom: { id: string };
-
+  // Chat: undefined;
+  ManageProperties: undefined;
   ManageTenants: undefined;
+  
+  CreateProperty: undefined;
+  EditProperty: { id: string };
+  SingleProperty: { id: string };
+  
   SingleTenant: { id: string };
+
+  Problem: undefined;
 };
 const Tab = createBottomTabNavigator();
 
@@ -29,36 +30,7 @@ export default function ManageAppNavigator(): React.ReactElement {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, size, color }) => {
-          var iconName: string;
-          switch (route.name) {
-            case 'Home':
-              iconName = 'home';
-              break;
-            case 'ManageInvoices':
-              iconName = 'file-invoice-dollar';
-              break;
-            case 'ManageTenants':
-              iconName = 'users';
-              break;
-            case 'Chat':
-              iconName = 'inbox';
-              break;
-            case 'Problem':
-              iconName = 'house-damage';
-              break;
-            default:
-              iconName = '';
-          }
-          return (
-            <FontAwesome5Icon
-              name={iconName}
-              size={25}
-              style={{ color: focused ? '#eb344f' : '#808080' }}
-            />
-          );
-        },
+      screenOptions={() => ({
         headerTitleAlign: 'left',
         headerStyle: {
           backgroundColor: '#eb344f',
@@ -68,41 +40,29 @@ export default function ManageAppNavigator(): React.ReactElement {
       <Tab.Screen
         name="Home"
         component={ManageHomeScreen}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <FontAwesome5Icon
+              name="home"
+              size={25}
+              style={{ color: focused ? '#eb344f' : '#808080' }}
+            />
+          )
+        }}
       />
       <Tab.Screen
-        name="ManageInvoices"
-        component={ManageInvoiceScreen}
+        name="ManageProperties"
+        component={ManagePropertiesScreen}
         options={{
-          headerTitle: 'Manage Invoices',
-          tabBarLabel: 'Invoices',
-        }} />
-      <Tab.Screen
-        name="ManageRooms"
-        component={ManageRoomsScreen}
-        options={{
-          headerTitle: 'Manage Rooms',
-          tabBarButton: () => null
-        }} />
-      <Tab.Screen
-        name="CreateRoom"
-        component={CreateRoomScreen}
-        options={{
-          headerTitle: 'Create Room',
-          tabBarButton: () => null
-        }} />
-      <Tab.Screen
-        name="EditRoom"
-        component={EditRoomScreen}
-        options={{
-          headerTitle: 'Edit Room',
-          tabBarButton: () => null
-        }} />
-      <Tab.Screen
-        name="SingleRoom"
-        component={SingleRoomScreen}
-        options={{
-          headerTitle: 'Single Room',
-          tabBarButton: () => null
+          headerTitle: 'Manage Properties',
+          tabBarLabel: 'Properties',
+          tabBarIcon: ({focused}) => (
+            <FontAwesome5Icon
+              name="building"
+              size={25}
+              style={{ color: focused ? '#eb344f' : '#808080' }}
+            />
+          )
         }} />
       <Tab.Screen
         name="ManageTenants"
@@ -110,6 +70,47 @@ export default function ManageAppNavigator(): React.ReactElement {
         options={{
           headerTitle: 'Manage Tenants',
           tabBarLabel: 'Tenants',
+          tabBarIcon: ({focused}) => (
+            <FontAwesome5Icon
+              name="users"
+              size={25}
+              style={{ color: focused ? '#eb344f' : '#808080' }}
+            />
+          )
+        }} />
+      <Tab.Screen
+        name="ManageInvoices"
+        component={ManageInvoiceScreen}
+        options={{
+          headerTitle: 'Manage Invoices',
+          tabBarLabel: 'Invoices',
+          tabBarIcon: ({focused}) => (
+            <FontAwesome5Icon
+              name="file-invoice-dollar"
+              size={25}
+              style={{ color: focused ? '#eb344f' : '#808080' }}
+            />
+          )
+        }} />
+      <Tab.Screen
+        name="CreateProperty"
+        component={CreatePropertyScreen}
+        options={{
+          headerTitle: 'Create Property',
+          tabBarButton: () => null
+        }} />
+      <Tab.Screen
+        name="EditProperty"
+        component={EditPropertyScreen}
+        options={{
+          headerTitle: 'Edit Property',
+          tabBarButton: () => null
+        }} />
+      <Tab.Screen
+        name="SingleProperty"
+        component={SinglePropertyScreen}
+        options={{
+          tabBarButton: () => null
         }} />
       <Tab.Screen
         name="SingleTenant"
@@ -118,8 +119,13 @@ export default function ManageAppNavigator(): React.ReactElement {
           headerTitle: 'Single Tenant',
           tabBarButton: () => null
         }} />
-      <Tab.Screen name="Chat" component={ManageHomeScreen} />
-      <Tab.Screen name="Problem" component={ManageHomeScreen} />
+      {/* <Tab.Screen name="Chat" component={ManageHomeScreen} /> */}
+      <Tab.Screen 
+        name="Problem" 
+        component={ManageHomeScreen} 
+        options={{
+          tabBarButton: () => null
+        }}/>
     </Tab.Navigator>
   );
 }

@@ -3,7 +3,7 @@ import RegularText from "@components/text/RegularText";
 import { ManageAppParamList } from "@navigation/manage-app/manage-app.navigator";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { RouteProp, useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
-import { TenantService } from "@services/tenant.service";
+import { TenantService } from "@services/user.service";
 import React from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Avatar } from "react-native-paper";

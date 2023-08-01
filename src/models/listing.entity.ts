@@ -1,19 +1,29 @@
-type ListingEntity = {
+import { PolicyEntity } from "./policy.entity";
+import { PropertyEntity } from "./property.entity";
+import { UnitEntity } from "./unit.entity";
+
+export type ListingEntity = {
 	id: string;
-  propertyType: 'Room' | 'Single Residence' | 'Apartment';
-	title: string;
-	address: string;
-	price: number;
-	area: number;
-	submittedDate: Date;
-	thumbnailImg: string;
-	images?: string[];
-	description?: string;
-	location: {
-		latitude: number;
-		longtitude: number;
-		latitudeDelta?: number;
-		longitudeDelta?: number;
-	},
-  isActive?: boolean;
+  creatorId: string;
+  propertyId: string;
+  title: string;
+  description: string;
+
+  price: number;
+  securityDeposit: number;
+
+  petsAllowed?: boolean;
+  nResidents?: number;
+  leaseTerm?: number;
+  policies: PolicyEntity[];
+
+  priority: number;
+  active: boolean;
+  
+  createdAt: Date;
+  updatedAt: Date;
+
+  property: PropertyEntity;
+  creator: UserEntity;
+  units: UnitEntity;
 } 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ImageBackground,
   Modal,
@@ -8,32 +8,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
+import { Button, TextInput } from 'react-native-paper';
 import styles from './login.styles';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {AppStackParamList} from '@navigation/app.navigator';
-import {useNavigation} from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AppStackParamList } from '@navigation/app.navigator';
+import { useNavigation } from '@react-navigation/native';
 import FIcon from 'react-native-vector-icons/Foundation';
 import AIcon from 'react-native-vector-icons/AntDesign';
-import {List, MD3Colors} from 'react-native-paper';
+import { List, MD3Colors } from 'react-native-paper';
 
 type LoginScreenProp = StackNavigationProp<AppStackParamList, 'Login'>;
 
 export default function LoginScreen(): JSX.Element {
   const navigation = useNavigation<LoginScreenProp>();
 
-  const [showModal, setShowModal] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [accountType, setAccountType] = useState<string>('Choose account type');
 
   const handleLogin = () => {
     navigation.replace('ManageAppNav');
-  };
-
-  const handleChooseType = (type: string) => {
-    setAccountType(type);
-    setShowModal(false);
   };
 
   const handleNavigateToRegister = () => {
@@ -42,58 +36,19 @@ export default function LoginScreen(): JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Modal
-        visible={showModal}
-        transparent
-        onRequestClose={() => setShowModal(false)}
-        animationType="slide"
-        hardwareAccelerated>
-        <View
-          style={styles.modalView}
-          onTouchEndCapture={() => setShowModal(false)}>
-          <View style={styles.modalContainer}>
-            <List.Section>
-              <List.Subheader>Choose account type</List.Subheader>
-              <Pressable
-                android_ripple={{color: styles.modalPressableItem.color}}
-                onPress={() => handleChooseType('Manager')}>
-                <List.Item
-                  title="Manager"
-                  left={() => (
-                    <List.Icon
-                      icon="account-supervisor"
-                      style={styles.modalIcon}
-                    />
-                  )}
-                />
-              </Pressable>
-              <Pressable
-                android_ripple={{color: styles.modalPressableItem.color}}
-                onPress={() => handleChooseType('Tenant')}>
-                <List.Item
-                  title="Tenant"
-                  left={() => (
-                    <List.Icon
-                      color={MD3Colors.tertiary70}
-                      icon={props => (
-                        <AIcon name="user" size={18} style={styles.modalIcon} />
-                      )}
-                    />
-                  )}
-                />
-              </Pressable>
-            </List.Section>
-          </View>
-        </View>
-      </Modal>
       <ImageBackground
         source={require('@assets/images/login_background.png')}
         resizeMode="cover"
         style={styles.background}>
         <View style={styles.body}>
           <Text style={styles.title}>Login</Text>
-          <TextInput placeholder="Email" style={styles.input} />
           <TextInput
+            label="Email"
+            placeholder="Email"
+            style={styles.input}
+          />
+          <TextInput
+            label="Password"
             placeholder="Password"
             secureTextEntry={!showPassword}
             style={styles.input}
@@ -104,12 +59,6 @@ export default function LoginScreen(): JSX.Element {
               />
             }
           />
-          <Button
-            // style={styles.input}
-            mode="elevated"
-            onPress={() => setShowModal(true)}>
-            {accountType}
-          </Button>
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>

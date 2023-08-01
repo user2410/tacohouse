@@ -1,15 +1,11 @@
 import { Padding } from "@assets/styles/global-styles";
+import { PolicyEntity } from "@models/policy.entity";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { List as RNPList, Text as RNPText, TextInput as RNPTextInput } from 'react-native-paper';
 
-export interface PolicyItemProps {
-  title: string;
-  data: string[];
-}
-
 interface AddPolicyModalProps {
-  setAddedPolicies: React.Dispatch<React.SetStateAction<PolicyItemProps[]>>;
+  setAddedPolicies: React.Dispatch<React.SetStateAction<PolicyEntity[]>>;
   closeModal: () => void;
 }
 
@@ -34,7 +30,7 @@ export default function AddPolicyModal({setAddedPolicies, closeModal}: AddPolicy
               onPress={(e) => {
                 setAddedPolicies(prev => [...prev, {
                   title: newPolicy,
-                  data: [],
+                  notes: [],
                 }]);
                 closeModal();
               }}

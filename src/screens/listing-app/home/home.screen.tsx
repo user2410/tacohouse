@@ -1,3 +1,12 @@
+import { Color } from "@assets/styles/global-styles";
+import ErrorComponent from "@components/error/error";
+import LoadingComponent from "@components/loading/loading";
+import Section from "@components/section/section";
+import { ListingEntity } from "@models/listing.entity";
+import { ListingNavigatorParams } from "@navigation/listing-app/listing-app.navigator";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
+import ListingService from "@services/listing.service";
 import React from "react";
 import {
   Modal,
@@ -8,30 +17,36 @@ import {
   Text,
   View
 } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
 import { List, Button as RNPButton, TextInput as RNPTextInput } from "react-native-paper";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 import { DistrictCard } from "./district-card";
 import styles from './home.styles';
 import { ListingCard } from "./listing-card";
-import { Color } from "@assets/styles/global-styles";
-import { cities, districts, listings } from "./static";
-import ListingService from "@services/listing.service";
-import Section from "@components/section/section";
-import { useNavigation } from "@react-navigation/native";
-import { ListingNavigatorParams } from "@navigation/listing-app/listing-app.navigator";
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { cities, districts } from "./static";
 
 export default function ListingHomeScreen() {
   const navigation = useNavigation<BottomTabNavigationProp<ListingNavigatorParams, 'Home'>>();
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [currentCity, setCurrentCity] = React.useState<string>('hanoi');
   const [newListings, setNewListings] = React.useState<ListingEntity[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<any>();
 
-  React.useEffect(() => {
-    (async () => {
+  const getListings = async () => {
+    try {
+      setLoading(true);
       const res = await ListingService.getNewListings();
       setNewListings(res);
-    })()
+    } catch(err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  React.useEffect(() => {
+    getListings()
   }, []);
 
   const handleChooseCity = (citySlug: string) => {
@@ -40,10 +55,14 @@ export default function ListingHomeScreen() {
 
   const handlePressListing = (id: string) => {
     console.log('listing', id);
-    navigation.navigate('SingleListing', {id});
+    navigation.navigate('SingleListing', { id });
   }
 
-  return (
+  return loading ? (
+    <LoadingComponent />
+  ) : error ? (
+    <ErrorComponent error={error} />
+  ) : (
     <SafeAreaView style={styles.androidLarge2}>
 
       <Modal
@@ -107,6 +126,12 @@ export default function ListingHomeScreen() {
       <ScrollView
         indicatorStyle="white"
         showsHorizontalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={getListings}
+          />
+        }
       >
         <Section title="Districts" bodyStyle={styles.districtGalery}>
           <>
